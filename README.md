@@ -1,1 +1,2 @@
-# fa21-172-the-beacons-are-lit
+# Team Project (Replace with your Team Name and Journal)
+
