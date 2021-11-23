@@ -1,4 +1,4 @@
-package com.example.starbucksapi;
+package com.example.Restful;
 
 import java.util.HashMap;
 import java.util.List;
