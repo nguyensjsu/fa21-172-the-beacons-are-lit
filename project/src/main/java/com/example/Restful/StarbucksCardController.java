@@ -1,4 +1,4 @@
-package com.example.starbucksapi;
+package com.example.Restful;
 
 import java.util.List;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package com.example.starbucksapi;
+package com.example.Restful;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
