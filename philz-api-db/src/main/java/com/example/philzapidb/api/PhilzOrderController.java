@@ -1,4 +1,4 @@
-package com.example.Restful;
+package com.example.philzapidb.api;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.Restful;
+package com.example.philzapidb.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

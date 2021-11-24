@@ -1,10 +1,10 @@
-package com.example.philzapi;
+package com.example.philzapidb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PhilzApiApplicationTests {
+class PhilzApiDbApplicationTests {
 
 	@Test
 	void contextLoads() {
