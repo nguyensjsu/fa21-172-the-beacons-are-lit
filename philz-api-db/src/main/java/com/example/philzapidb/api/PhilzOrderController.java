@@ -5,6 +5,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.philzapidb.enums.order.CreamLevel;
+import com.example.philzapidb.enums.order.DrinkType;
+import com.example.philzapidb.enums.order.MilkType;
+import com.example.philzapidb.enums.order.Ordersize;
+import com.example.philzapidb.enums.order.SugarAmnt;
+import com.example.philzapidb.enums.order.TempLevel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -151,6 +158,25 @@ public class PhilzOrderController {
         this.orders.put(regid, newOrder); // Add to the hashmap
 
         return newOrder;
+    }
+
+    /**
+     * Private, used by new order. 
+     * Determines the pricing for the drink including tax
+     * @param drink Drink type
+     * @param size Size of the drink
+     * @param cream Amount of cream
+     * @param milk Type of milk
+     * @param sugar Amount of sugar
+     * @param temp Temperature of the drink
+     * @return Price for the drink including tax
+     */
+    private double drinkPrice(DrinkType drink, Ordersize size, CreamLevel cream, MilkType milk, SugarAmnt sugar,
+            TempLevel temp) {
+        double price = 0.0;
+            
+
+        return price;
     }
 
     // Get info about specific active order
