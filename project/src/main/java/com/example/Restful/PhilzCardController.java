@@ -19,22 +19,22 @@ import lombok.Setter;
 
 @RestController
 @AllArgsConstructor // using this for constructor to instantiate repository
-public class StarbucksCardController {
+public class PhilzCardController {
 
-    private final StarbucksCardRepository repository;
+    private final PhilzCardRepository repository;
 
     class Message {
         @Getter
         @Setter
         private String status;
     }
-    // StarbucksCardController(StarbucksCardRepository repository)
+    // PhilzCardController(PhilzCardRepository repository)
 
     // Create a new card
     @PostMapping("/cards")
-    StarbucksCard newCard() {
+    PhilzCard newCard() {
         // Create new card object
-        StarbucksCard newCard = new StarbucksCard();
+        PhilzCard newCard = new PhilzCard();
 
         // Generate random number for card code
         // Ideally you would check for collision
@@ -54,14 +54,14 @@ public class StarbucksCardController {
 
     // Get list of all cards
     @GetMapping("/cards")
-    List<StarbucksCard> getAllCards() {
+    List<PhilzCard> getAllCards() {
         return this.repository.findAll();
     }
 
     // Get details of a card
     @GetMapping("/card/{num}")
-    StarbucksCard getCard(@PathVariable String num, HttpServletResponse response) {
-        StarbucksCard card = this.repository.findByCardNumber(num);
+    PhilzCard getCard(@PathVariable String num, HttpServletResponse response) {
+        PhilzCard card = this.repository.findByCardNumber(num);
 
         if (card == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error, Card Not Found!");
@@ -70,8 +70,8 @@ public class StarbucksCardController {
     }
 
     @PostMapping("/card/activate/{num}/{code}")
-    StarbucksCard activate(@PathVariable String num, @PathVariable String code, HttpServletResponse response) {
-        StarbucksCard card = repository.findByCardNumber(num); // get the specific card by num
+    PhilzCard activate(@PathVariable String num, @PathVariable String code, HttpServletResponse response) {
+        PhilzCard card = repository.findByCardNumber(num); // get the specific card by num
 
         if (card == null) { // not found
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error, Card Not Found!");

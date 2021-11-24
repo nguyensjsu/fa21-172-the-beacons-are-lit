@@ -26,7 +26,7 @@ public class PhilzOrderController {
     private final PhilzOrderRepository repository;
 
     @Autowired
-    private PhilzRepository cardsRepository;
+    private PhilzCardRepository cardsRepository;
 
     class Message {
         @Getter
