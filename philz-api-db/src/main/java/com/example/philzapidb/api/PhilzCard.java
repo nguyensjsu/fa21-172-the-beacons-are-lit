@@ -1,5 +1,5 @@
 //This defines the storage object of the Starbucks Card
-package com.example.Restful;
+package com.example.philzapidb.api;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
