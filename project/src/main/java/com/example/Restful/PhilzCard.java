@@ -5,30 +5,31 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-//import javax.persistence.Index;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Table(name = "CUSTOMER_ORDER")
+@Table(indexes = @Index(name = "altIndex", columnList = "cardNumber", unique = true))
 @Data
 @RequiredArgsConstructor
-public class StarbucksOrder {
+public class PhilzCard {
 
     private @Id @GeneratedValue Long id;
 
     @Column(nullable = false)
-    private String drink;
+    private String cardNumber;
 
     @Column(nullable = false)
-    private String milk;
+    private String cardCode;
 
     @Column(nullable = false)
-    private String size;
+    private double balance;
 
-    private double total;
+    @Column(nullable = false)
+    private boolean activated;
 
     private String status;
 }

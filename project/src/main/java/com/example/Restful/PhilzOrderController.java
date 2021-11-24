@@ -21,12 +21,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @RestController
-public class StarbucksOrderController {
+public class PhilzOrderController {
 
-    private final StarbucksOrderRepository repository;
+    private final PhilzOrderRepository repository;
 
     @Autowired
-    private StarbucksCardRepository cardsRepository;
+    private PhilzRepository cardsRepository;
 
     class Message {
         @Getter
@@ -34,16 +34,16 @@ public class StarbucksOrderController {
         private String status;
     }
 
-    private HashMap<String, StarbucksOrder> orders = new HashMap<>(); // String - id, StarbucksOrder - order itself
+    private HashMap<String, PhilzOrder> orders = new HashMap<>(); // String - id, StarbucksOrder - order itself
 
-    StarbucksOrderController(StarbucksOrderRepository repository) {
+    PhilzOrderController(PhilzOrderRepository repository) {
         this.repository = repository;
     }
 
     // Create new order
     @PostMapping("/order/register/{regid}")
     @ResponseStatus(HttpStatus.CREATED)
-    StarbucksOrder newOrder(@PathVariable String regid, @RequestBody StarbucksOrder order) {
+    PhilzOrder newOrder(@PathVariable String regid, @RequestBody PhilzOrder order) {
 
         System.out.println("Creating order " + regid + ": " + order);
 
@@ -51,7 +51,7 @@ public class StarbucksOrderController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request");
         }
 
-        StarbucksOrder active = this.orders.get(regid);
+        PhilzOrder active = this.orders.get(regid);
         if (active != null) {
             System.out.println("Active order " + regid + ": " + order);
             if (active.getStatus().equals("Ready for Payment")) {
@@ -147,7 +147,7 @@ public class StarbucksOrderController {
         order.setTotal(rounded);
 
         order.setStatus("Ready for Payment");
-        StarbucksOrder newOrder = this.repository.save(order);
+        PhilzOrder newOrder = this.repository.save(order);
         this.orders.put(regid, newOrder); // Add to the hashmap
 
         return newOrder;
@@ -155,8 +155,8 @@ public class StarbucksOrderController {
 
     // Get info about specific active order
     @GetMapping("/order/register/{regid}")
-    StarbucksOrder getActiveOrder(@PathVariable String regid, HttpServletResponse response) {
-        StarbucksOrder active = this.orders.get(regid);
+    PhilzOrder getActiveOrder(@PathVariable String regid, HttpServletResponse response) {
+        PhilzOrder active = this.orders.get(regid);
         if (active != null) {
             return active;
         } else {
@@ -167,7 +167,7 @@ public class StarbucksOrderController {
     // Clear a specific order
     @DeleteMapping("/order/register/{regid}")
     Message deleteActiveOrder(@PathVariable String regid) {
-        StarbucksOrder active = this.orders.get(regid);
+        PhilzOrder active = this.orders.get(regid);
         if (active != null) {
             this.orders.remove(regid);
             Message msg = new Message();
@@ -180,10 +180,10 @@ public class StarbucksOrderController {
 
     // Pay for active order
     @PostMapping("/order/register/{regid}/pay/{cardnum}")
-    StarbucksCard processOrder(@PathVariable String regid, @PathVariable String cardnum) {
+    PhilzCard processOrder(@PathVariable String regid, @PathVariable String cardnum) {
         System.out.println("Pay for order " + regid + " with card: " + cardnum);
 
-        StarbucksOrder active = this.orders.get(regid);
+        PhilzOrder active = this.orders.get(regid);
 
         if (active == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
@@ -195,7 +195,7 @@ public class StarbucksOrderController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active Order Already Cleared!");
         }
 
-        StarbucksCard card = this.cardsRepository.findByCardNumber(cardnum);
+        PhilzCard card = this.cardsRepository.findByCardNumber(cardnum);
         if (card == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Card Not Found!");
         }
@@ -219,7 +219,7 @@ public class StarbucksOrderController {
 
     // get all orders
     @GetMapping("/orders")
-    List<StarbucksOrder> getAllOrders() {
+    List<PhilzOrder> getAllOrders() {
         return this.repository.findAll();
     }
 
