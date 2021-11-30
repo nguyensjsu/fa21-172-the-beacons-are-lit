@@ -66,67 +66,7 @@ public class PhilzOrderController {
             }
         }
 
-
-        double price = 0.0;
-        switch (order.getDrink()) {
-        case "JACOBS":
-        case "ETHER":
-        case "ARABIC":
-        case "TURKISH":
-        case "TESORA":
-        case "PHILHARMONIC":
-        case "JULIES":
-        case "SOUL":
-        case "SILKEN":
-        case "ALARM":
-        case "GRATITUDE":
-        case "AMBROSIA":
-        case "DANCINGWATER":
-        case "NEWMANHATTAN":
-        case "COLUMBIADECAF":
-        case "MEDIUMDECAF":
-        case "LIGHTDECAF":
-        case "ECSTATIC":
-            switch (order.getSize()) {
-            case "SMALL":
-                price = 3.85;
-                break;
-            case "MEDIUM":
-                price = 4.70;
-                break;
-            case "LARGE":
-                price = 5.35;
-                break;
-            default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
-            }
-            break;
-        case "MOCHA":
-        case "WINTER":
-        case "MOJITO":
-        case "ROSE":
-        case "GINGERSNAP":
-        case "MISSIONCOLDBREW":
-        case "SOULCOLDBREW":
-            switch (order.getSize()) {
-            case "SMALL":
-                price = 4.85;
-                break;
-            case "MEDIUM":
-                price = 5.70;
-                break;
-            case "LARGE":
-                price = 6.35;
-                break;
-            default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
-            }
-            break;
-        default:
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Drink!");
-        }
-        double tax = 0.0725;
-        double total = price + (price * tax);
+        double total = drinkPrice(order.getDrink(), order.getSize());
         double scale = Math.pow(10, 2);
         double rounded = Math.round(total + scale) / scale;
         order.setTotal(rounded);
@@ -143,17 +83,69 @@ public class PhilzOrderController {
      * Determines the pricing for the drink including tax
      * @param drink Drink type
      * @param size Size of the drink
-     * @param cream Amount of cream
-     * @param milk Type of milk
-     * @param sugar Amount of sugar
-     * @param temp Temperature of the drink
      * @return Price for the drink including tax
      */
-    private double drinkPrice(DrinkType drink, Ordersize size, CreamLevel cream, MilkType milk, SugarAmnt sugar,
-            TempLevel temp) {
+    private double drinkPrice(String drink, String size){
         double price = 0.0;
-            
-
+        switch (drink) {
+            case "JACOBS":
+            case "ETHER":
+            case "ARABIC":
+            case "TURKISH":
+            case "TESORA":
+            case "PHILHARMONIC":
+            case "JULIES":
+            case "SOUL":
+            case "SILKEN":
+            case "ALARM":
+            case "GRATITUDE":
+            case "AMBROSIA":
+            case "DANCINGWATER":
+            case "NEWMANHATTAN":
+            case "COLUMBIADECAF":
+            case "MEDIUMDECAF":
+            case "LIGHTDECAF":
+            case "ECSTATIC":
+                switch (size) {
+                case "SMALL":
+                    price = 3.85;
+                    break;
+                case "MEDIUM":
+                    price = 4.70;
+                    break;
+                case "LARGE":
+                    price = 5.35;
+                    break;
+                default:
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
+                }
+                break;
+            case "MOCHA":
+            case "WINTER":
+            case "MOJITO":
+            case "ROSE":
+            case "GINGERSNAP":
+            case "MISSIONCOLDBREW":
+            case "SOULCOLDBREW":
+                switch (size) {
+                case "SMALL":
+                    price = 4.85;
+                    break;
+                case "MEDIUM":
+                    price = 5.70;
+                    break;
+                case "LARGE":
+                    price = 6.35;
+                    break;
+                default:
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
+                }
+                break;
+            default:
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Drink!");
+            }
+            double tax = 0.0725;
+            price = price + (price * tax);
         return price;
     }
 
