@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NavigationBar from "./components/NavigationBar";
 import Welcome from "./components/Welcome";
-import UserList from "./components/User/UserList";
 import Register from "./components/User/Register";
 import Login from "./components/User/Login";
 import Footer from "./components/Footer";
@@ -31,7 +30,6 @@ const App = () => {
             <Switch>
               <Route path="/" exact component={Welcome} />
               <Route path="/home" exact component={Home} />
-              <Route path="/users" exact component={UserList} />
               <Route path="/register" exact component={Register} />
               <Route path="/login" exact component={Login} />
               <Route
