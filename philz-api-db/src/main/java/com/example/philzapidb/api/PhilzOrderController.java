@@ -66,79 +66,57 @@ public class PhilzOrderController {
             }
         }
 
+
         double price = 0.0;
         switch (order.getDrink()) {
-        case "Latte":
+        case "JACOBS":
+        case "ETHER":
+        case "ARABIC":
+        case "TURKISH":
+        case "TESORA":
+        case "PHILHARMONIC":
+        case "JULIES":
+        case "SOUL":
+        case "SILKEN":
+        case "ALARM":
+        case "GRATITUDE":
+        case "AMBROSIA":
+        case "DANCINGWATER":
+        case "NEWMANHATTAN":
+        case "COLUMBIADECAF":
+        case "MEDIUMDECAF":
+        case "LIGHTDECAF":
+        case "ECSTATIC":
             switch (order.getSize()) {
-            case "Tall":
-                price = 2.95;
+            case "SMALL":
+                price = 3.85;
                 break;
-            case "Grande":
-                price = 3.65;
+            case "MEDIUM":
+                price = 4.70;
                 break;
-            case "Venti":
-            case "Your Own Cup":
-                price = 3.95;
+            case "LARGE":
+                price = 5.35;
                 break;
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
             }
             break;
-        case "Americano":
+        case "MOCHA":
+        case "WINTER":
+        case "MOJITO":
+        case "ROSE":
+        case "GINGERSNAP":
+        case "MISSIONCOLDBREW":
+        case "SOULCOLDBREW":
             switch (order.getSize()) {
-            case "Tall":
-                price = 2.25;
+            case "SMALL":
+                price = 4.85;
                 break;
-            case "Grande":
-                price = 2.65;
+            case "MEDIUM":
+                price = 5.70;
                 break;
-            case "Venti":
-            case "Your Own Cup":
-                price = 3.25;
-                break;
-            default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
-            }
-            break;
-        case "Mocha":
-            switch (order.getSize()) {
-            case "Tall":
-                price = 3.45;
-                break;
-            case "Grande":
-                price = 4.15;
-                break;
-            case "Venti":
-            case "Your Own Cup":
-                price = 4.45;
-                break;
-            default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
-            }
-            break;
-        case "Espresso":
-            switch (order.getSize()) {
-            case "Tall":
-                price = 1.95;
-                break;
-            case "Short":
-                price = 1.75;
-                break;
-            default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
-            }
-            break;
-        case "Cappuccino":
-            switch (order.getSize()) {
-            case "Tall":
-                price = 2.95;
-                break;
-            case "Grande":
-                price = 3.65;
-                break;
-            case "Venti":
-            case "Your Own Cup":
-                price = 3.95;
+            case "LARGE":
+                price = 6.35;
                 break;
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
