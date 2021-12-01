@@ -41,7 +41,7 @@ public class PhilzOrderController {
         private String status;
     }
 
-    private HashMap<String, PhilzOrder> orders = new HashMap<>(); // String - id, StarbucksOrder - order itself
+    private HashMap<String, PhilzOrder> orders = new HashMap<>(); // String - id, PhilzOrder - order itself
 
     PhilzOrderController(PhilzOrderRepository repository) {
         this.repository = repository;
