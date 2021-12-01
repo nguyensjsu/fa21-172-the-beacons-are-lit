@@ -175,43 +175,6 @@ public class CyberSourceAPI {
         return response ;
     }
 
-    public RefundResponse refund( RefundRequest req ) {
-
-        postRequestTarget = "post /pts/v2/captures/"+req.captureId+"/refunds" ;
-        APINAME = "payments";
-        resource = "/pts/v2/captures/"+req.captureId+"/refunds";
-        
-        payload = "{\n" +
-                "  \"clientReferenceInformation\": {\n" +
-                "    \"code\": \""+req.reference+"\"\n" +
-                "  },\n" +
-                "  \"orderInformation\": {\n" +
-                "    \"amountDetails\": {\n" +
-                "      \"totalAmount\": \""+req.transactionAmount+"\",\n" +
-                "      \"currency\": \""+req.transactionCurrency+"\"\n" +
-                "    }\n" +
-                "  }\n" +
-                "}";
-
-        if (DEBUG) System.out.println("\n\nRefund Request: " + req.toJson() ) ;
-        PostResponse res = sendPost("https://" + requestHost + resource) ;
-        RefundResponse response = new RefundResponse() ;
-        response.code = res.code ;
-        if ( res.exception != null ) {
-            response.status = "ERROR" ;
-            response.message = res.exception ;
-        } else {
-            String refundResult = res.response ;
-            if (DEBUG) System.out.println( refundResult ) ;
-            response = RefundResponse.fromJson( refundResult ) ;
-            if (DEBUG) System.out.println("\n\nRefund Response: " + response.toJson() ) ;  
-        }     
-
-        return response ;
-
-    }
-
-
 
     // HTTP GET request
     private String sendGet(String url) throws Exception {
