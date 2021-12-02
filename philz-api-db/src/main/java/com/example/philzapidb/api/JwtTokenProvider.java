@@ -1,59 +1,72 @@
 package com.example.philzapidb.api;
 
-import java.io.Serializable;
-import java.util.Base64;
 import java.util.Date;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
-public class JwtTokenProvider implements Serializable {
+public class JwtTokenProvider {
 
-	private static final long serialVersionUID = 2569800841756370596L;
+    //private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+	private static final Logger logger = LogManager.getLogger(JwtTokenProvider.class);
 
-	@Value("${jwt.secret-key}")
-	private String secretKey;
+    @Value("${app.jwtSecret}")
+    private String jwtSecret;
 
-	@PostConstruct
-	protected void init() {
-		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
-	}
+    @Value("${app.jwtExpirationInMs}")
+    private int jwtExpirationInMs;
 
-	private long validityInMilliseconds = 50 * 60 * 60; // 2 minute
+    public String generateToken(Authentication authentication) {
 
-	public String createToken(String username) {
-		Claims claims = Jwts.claims().setSubject(username);
-		claims.put("auth",username);
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
-		Date now = new Date();
-		return Jwts.builder().setClaims(claims).setIssuedAt(now)
-				.setExpiration(new Date(now.getTime() + validityInMilliseconds))
-				.signWith(SignatureAlgorithm.HS256, secretKey).compact();
-	}
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
-	@Autowired
-	private UserDetailsService userDetailsService;
+        return Jwts.builder()
+                .setSubject(Long.toString(userPrincipal.getId()))
+                .setIssuedAt(new Date())
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
 
-	public Authentication getAuthentication(String username) {
-		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-		return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(),
-				userDetails.getAuthorities());
-	}
+    public Long getUserIdFromJWT(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
 
-	public Claims getClaimsFromToken(String token) {
-		return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-	}
+        return Long.parseLong(claims.getSubject());
+    }
 
+    public boolean validateToken(String authToken) {
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            return true;
+        } catch (SignatureException ex) {
+            logger.error("Invalid JWT signature");
+        } catch (MalformedJwtException ex) {
+            logger.error("Invalid JWT token");
+        } catch (ExpiredJwtException ex) {
+            logger.error("Expired JWT token");
+        } catch (UnsupportedJwtException ex) {
+            logger.error("Unsupported JWT token");
+        } catch (IllegalArgumentException ex) {
+            logger.error("JWT claims string is empty.");
+        }
+        return false;
+    }
 }
