@@ -22,20 +22,32 @@ Credit card -> Enter everytime customer orders -> verify credit card upon order 
 
 ## API 
 @Get, @Post, @Delete, @Put
+
+### Frontend
+"front end" - interactive interface, react. 
+
+### Backend 1
+- Security Here
 api/login @Get
-api/register @Get
-api/register/{createduserid} @Post
 api/login/reset @Get
 api/login/reset/{userid} @Put
+api/register @Get
+api/register/{createduserid} @Post
+- create the entry in ths sql db
+
+### Backend 2
 api/products/{userid} @Get #every product will be on here. This is also the home page @Get
-- every time you add something to cart, update list/in mem db
 api/cart/{userid} @Get
 api/cart/{userid}
 api/cart/{userid} @Delete #delete entire cart
+
+### Backend 3
+- RabbitMQ Here
+- Cybersource here
 api/payment/{userid} @Get
 api/payment/{userid} @Post
 
-## Database spec
+## Database & Data Storage spec
 User - SQL
 - Long index id
 - String name
@@ -49,5 +61,14 @@ List products = new ArrayList<>() //all products for a specific user
 Hashmap<userid, productlist> map = new hashmap()
 map.get(userid).remove(add)
 
+product - class
+Class Product{
+    String id; 
+    String type
+    ...
+
+}
+
 Carts - In memory
 - list of all carts in existence
+
