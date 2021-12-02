@@ -50,8 +50,8 @@ public class AddtoCartController {
 			long userId =  Long.parseLong(addCartRequest.get("userId")); 
 			int qty =  Integer.parseInt(addCartRequest.get("qty")); 
 			double price = Double.parseDouble(addCartRequest.get("price"));
-			 cartService.updateQtyByCartId(cartId, qty, price);
-			 List<AddtoCart> obj = cartService.getCartByUserId(userId);
+			cartService.updateQtyByCartId(cartId, qty, price);
+			List<AddtoCart> obj = cartService.getCartByUserId(userId);
 			return ResponseEntity.ok(obj);
 		} catch (Exception e) {
 			e.printStackTrace();
