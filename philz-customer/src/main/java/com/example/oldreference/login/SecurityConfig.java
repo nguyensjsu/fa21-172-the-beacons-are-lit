@@ -1,7 +1,7 @@
-package com.example.login;
+package com.example.oldreference.login;
 
-import com.example.jwt.JwtAuthenticationEntryPoint;
-import com.example.jwt.JwtAuthenticationFilter;
+import com.example.oldreference.jwt.JwtAuthenticationEntryPoint;
+import com.example.oldreference.jwt.JwtAuthenticationFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,12 +1,12 @@
-package com.example.login;
+package com.example.oldreference.login;
 
 import java.util.HashMap;
 
-import com.example.helper.ApiResponse;
-import com.example.jwt.JwtTokenProvider;
-import com.example.user.User;
-import com.example.user.UserPrincipal;
-import com.example.user.UserService;
+import com.example.oldreference.helper.ApiResponse;
+import com.example.oldreference.jwt.JwtTokenProvider;
+import com.example.oldreference.user.User;
+import com.example.oldreference.user.UserPrincipal;
+import com.example.oldreference.user.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

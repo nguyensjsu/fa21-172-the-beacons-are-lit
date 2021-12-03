@@ -1,4 +1,4 @@
-package com.example.user;
+package com.example.oldreference.user;
 
 import java.util.Collection;
 import java.util.List;

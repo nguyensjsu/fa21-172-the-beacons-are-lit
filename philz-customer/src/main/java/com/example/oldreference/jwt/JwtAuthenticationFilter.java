@@ -1,5 +1,5 @@
 //Login and security
-package com.example.jwt;
+package com.example.oldreference.jwt;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.login.CustomUserDetailsService;
+import com.example.oldreference.login.CustomUserDetailsService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

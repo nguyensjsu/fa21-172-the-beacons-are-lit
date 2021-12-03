@@ -1,8 +1,8 @@
-package com.example.jwt;
+package com.example.oldreference.jwt;
 
 import java.util.Date;
 
-import com.example.user.UserPrincipal;
+import com.example.oldreference.user.UserPrincipal;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

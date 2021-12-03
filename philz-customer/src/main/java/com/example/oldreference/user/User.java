@@ -1,4 +1,4 @@
-package com.example.user;
+package com.example.oldreference.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
