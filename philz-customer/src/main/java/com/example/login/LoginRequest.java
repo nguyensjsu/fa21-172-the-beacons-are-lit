@@ -1,4 +1,4 @@
-package com.example.philzcustomer;
+package com.example.login;
 
 public class LoginRequest {
 	String mobile;

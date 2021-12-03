@@ -1,8 +1,12 @@
-package com.example.philzcustomer;
+package com.example.login;
 
 import java.util.HashMap;
 
-import com.example.philzapidb.api.UserService;
+import com.example.helper.ApiResponse;
+import com.example.jwt.JwtTokenProvider;
+import com.example.user.User;
+import com.example.user.UserPrincipal;
+import com.example.user.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +20,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import net.minidev.json.JSONObject;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 

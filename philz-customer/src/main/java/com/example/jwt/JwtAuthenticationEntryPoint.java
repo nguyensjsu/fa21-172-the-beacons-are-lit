@@ -1,5 +1,5 @@
 //login & security
-package com.example.philzapidb.api;
+package com.example.jwt;
 import java.io.IOException;
 
 import javax.servlet.ServletException;

@@ -33,6 +33,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.codehaus.jettison:jettison:1.4.1'
+	implementation 'org.json:json:20080701'
+	implementation 'commons-io:commons-io:2.6'
 }
 
 test {

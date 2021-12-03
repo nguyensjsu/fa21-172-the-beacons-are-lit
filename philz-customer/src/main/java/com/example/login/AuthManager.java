@@ -1,9 +1,13 @@
 //Login
-package com.example.philzapidb.api;
+package com.example.login;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.example.user.User;
+import com.example.user.UserPrincipal;
+import com.example.user.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

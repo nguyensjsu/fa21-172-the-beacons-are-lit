@@ -1,8 +1,11 @@
-package com.example.philzcustomer;
+package com.example.login;
 
 import java.util.HashMap;
 
-import org.json.JSONObject;
+import com.example.helper.ApiResponse;
+import com.example.user.User;
+import com.example.user.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
@@ -18,14 +21,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("api/signup")
 public class SignUpController {
 	@Autowired
-	  UserService userservice;
+	UserService userservice;
+
 	@RequestMapping("user")
-	public ResponseEntity<?> userLogin(@RequestBody HashMap<String,String> signupRequest) {
+	public ResponseEntity<?> userLogin(@RequestBody HashMap<String, String> signupRequest) {
 		try {
-			//TODO validation has to add for client request
+			// TODO validation has to add for client request
 			User user = userservice.signUpUser(signupRequest);
-			return  ResponseEntity.ok(user);
-		}catch(Exception e ) {
+			return ResponseEntity.ok(user);
+		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(new ApiResponse(e.getMessage(), ""));
 		}
 	}

@@ -1,7 +1,8 @@
-//login security
-package com.example.philzapidb.api;
+package com.example.jwt;
 
 import java.util.Date;
+
+import com.example.user.UserPrincipal;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
