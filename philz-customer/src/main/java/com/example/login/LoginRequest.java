@@ -1,4 +1,4 @@
-package com.example.philzapidb.api;
+package com.example.philzcustomer;
 
 public class LoginRequest {
 	String mobile;

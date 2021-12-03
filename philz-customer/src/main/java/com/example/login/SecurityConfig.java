@@ -1,4 +1,4 @@
-package com.example.philzapidb.api;
+package com.example.philzcustomer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

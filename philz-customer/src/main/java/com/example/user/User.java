@@ -1,4 +1,4 @@
-package com.example.philzapidb.api;
+package com.example.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

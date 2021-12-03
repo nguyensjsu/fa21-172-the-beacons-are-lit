@@ -1,8 +1,9 @@
-package com.example.philzapidb.api;
+package com.example.philzcustomer;
 
 import java.util.HashMap;
 
-import org.json.JSONObject;
+import com.example.philzapidb.api.UserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
