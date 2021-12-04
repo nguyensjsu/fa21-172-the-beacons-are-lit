@@ -23,7 +23,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import com.example.cybersource.*;
-//import com.example.philzcart.PhilzCart;
 
 import org.springframework.beans.factory.annotation.Value;
 
@@ -133,18 +132,16 @@ public class PaymentsController {
     @Autowired
     private PaymentsCommandRepository repository;
 
-    // connect modelattribute command to front end
 
     @GetMapping("api/payment/{userid}")
-    public String getAction( /*@ModelAttribute("command")*/ PaymentsCommand command, PhilzOrder order,
-                            Model model) {
+    public String getAction( PaymentsCommand command, PhilzCart cart, Model model) {
 
-        return "creditcards" ;
+        return "payment" ;
 
     }
 
     @PostMapping("api/payment/{userid}")
-    public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsCommand command, PhilzOrder order,  
+    public String postAction(@Validated PaymentsCommand command, PhilzCart cart,  
                             @RequestParam(value="action", required=true) String action,
                             Errors errors, Model model, HttpServletRequest request) {
     
@@ -186,11 +183,14 @@ public class PaymentsController {
         if(hasErrors){
             msgs.print();
             model.addAttribute("messages", msgs.getMessages());
-            return "creditcards";
+            return "payment";
         }
 
-        String order_num = String.valueOf(order.getId());
-        String total = String.valueOf(order.getTotal());
+        int min = 1239871;
+        int max = 9999999;
+        int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
+        String order_num = String.valueOf(random_int);
+        String total = String.valueOf(cart.getTotal());
         AuthRequest auth = new AuthRequest() ;
 		auth.reference = order_num;
 		auth.billToFirstName = command.firstname() ;
@@ -211,7 +211,7 @@ public class PaymentsController {
         if (auth.cardType.equals("Error")){
             System.out.println("Unsupported Credit Card Type.");
             model.addAttribute("message", "Unsupported Credit Card Type.");
-            return "creditcards";
+            return "payment";
         }
 		boolean authValid = true ;
 		AuthResponse authResponse = new AuthResponse() ;
@@ -222,7 +222,7 @@ public class PaymentsController {
             authValid = false ;
             System.out.println(authResponse.message);
             model.addAttribute("message", authResponse.message);
-            return "creditcards";
+            return "payment";
 		}
 
         boolean captureValid = true ;
@@ -240,7 +240,7 @@ public class PaymentsController {
                 captureValid = false;
                 System.out.println(captureResponse.message);
                 model.addAttribute("message", captureResponse.message);
-                return "creditcards";
+                return "payment";
             }
         }
 
@@ -258,7 +258,7 @@ public class PaymentsController {
         repository.save(command);
      
 
-        return "creditcards";
+        return "payment";
     }
 
 }
