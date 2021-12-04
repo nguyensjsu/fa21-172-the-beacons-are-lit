@@ -9,13 +9,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
-public class UserPrincipal  implements UserDetails {
+public class UserPrincipal implements UserDetails {
 	   private Long id;
 
-		    @JsonIgnore
+		@JsonIgnore
 	    private String mobile;
 
 	    @JsonIgnore
@@ -45,10 +45,6 @@ public class UserPrincipal  implements UserDetails {
 	        return id;
 	    }
 
-	    
-
-	    
-	  
 	    @Override
 	    public String getPassword() {
 	        return password;
