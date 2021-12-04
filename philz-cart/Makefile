@@ -15,30 +15,30 @@ jar:
 
 run: jar
 	echo Starting Spring at:  http://localhost:8080
-	java -jar build/libs/spring-gumball-2.0.jar
+	java -jar build/libs/philz-order-1.0.jar
 
 # Docker
 
 docker-build: jar
-	docker build -t spring-gumball .
+	docker build -t philz-cart .
 	docker images
 
 docker-run: docker-build
-	docker run --name spring-gumball -td -p 80:8080 spring-gumball	
+	docker run --name philz-cart -td -p 80:8080 philz-cart
 	docker ps
 
 docker-clean:
-	docker stop spring-gumball
-	docker rm spring-gumball
-	docker rmi spring-gumball
+	docker stop philz-cart
+	docker rm philz-cart
+	docker rmi philz-cart
 
 docker-shell:
-	docker exec -it spring-gumball bash 
+	docker exec -it philz-cart bash
 
 docker-push:
 	docker login
-	docker build -t marymarkart/spring-gumball:v2 -t marymarkart/spring-gumball:v2 .
-	docker push marymarkart/spring-gumball:v2
+	docker build -t marymarkart/philz-cart:v2 -t marymarkart/philz-cart:v2 .
+	docker push marymarkart/philz-cart:v2
 
 # Compose
 
@@ -46,13 +46,13 @@ network-ls:
 	docker network ls 
 
 network-create:
-	docker network create --driver bridge spring-gumball-v2_network
+	docker network create --driver bridge philz-cart-v2_network
 
 network-prune:
 	docker network prune
 
 compose-up:
-	docker-compose up --scale gumball=2 -d
+	docker-compose up --scale philz-cart=2 -d
 
 compose-down:
 	docker-compose down 	
@@ -74,16 +74,16 @@ pod-list:
 	kubectl get pods
 
 pod-desc:
-	kubectl describe pods spring-gumball
+	kubectl describe pods philz-cart
 
 pod-delete:
 	kubectl delete -f pod.yaml
 
 pod-shell:
-	kubectl exec -it spring-gumball -- /bin/bash
+	kubectl exec -it philz-cart -- /bin/bash
 
 pod-logs:
-	kubectl logs -f spring-gumball
+	kubectl logs -f philz-cart
 
 # Deployment
 
@@ -94,7 +94,7 @@ deployment-get:
 	kubectl get deployments
 
 deployment-get-pods:
-	kubectl get pods -l name=spring-gumball
+	kubectl get pods -l name=philz-cart
 
 deployment-pod-shell:
 	kubectl exec -it $(pod) -- /bin/bash
@@ -103,7 +103,7 @@ deployment-upgrade:
 	kubectl apply  -f deployment.yaml
 
 deployment-delete:
-	kubectl delete deployment spring-gumball-deployment
+	kubectl delete deployment philz-cart-deployment
 
 # Service
 
@@ -114,10 +114,10 @@ service-get:
 	kubectl get services
 
 service-get-ip:
-	kubectl get service spring-gumball -o wide
+	kubectl get service philz-cart -o wide
 
 service-delete:
-	kubectl delete service spring-gumball
+	kubectl delete service philz-cart
 
 # Ingress
 
@@ -125,7 +125,7 @@ ingress-apply:
 	kubectl apply -f ingress.yaml
 
 ingress-ip:
-	kubectl get ingress spring-gumball-ingress
+	kubectl get ingress philz-cart-ingress
 
 
 
