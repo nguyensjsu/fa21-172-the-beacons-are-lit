@@ -1,4 +1,4 @@
-package com.example.springcybersource;
+package com.example.cybersource;
 
 public class CaptureRequest extends Payload {
 
