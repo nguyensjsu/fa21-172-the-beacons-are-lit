@@ -26,12 +26,16 @@ public class PhilzCart {
 
     private @Id @GeneratedValue Long id;
 
-    @ManyToOne
-    private PhilzProducts order;
+    @OneToMany
+    private List<PhilzProducts> order;
 
     private String userId;
 
     private Status status;
 
     private double total;
+
+    public void addProduct(PhilzProducts product) {
+        order.add(product);
+    }
 }

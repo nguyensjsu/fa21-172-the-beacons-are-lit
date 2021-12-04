@@ -72,31 +72,31 @@ public class PhilzCartController {
         PhilzProducts product = productRepository.findAllByName(coffee.name);
 
         PhilzCart active = repository.findByUserId(userid);
-//        if (active != null) {
+        if (active == null) {
+            active = new PhilzCart();
 //            System.out.println("Active order " + userid + ": " + coffee);
 //            if (active.getStatus().equals("Ready for Payment")) {
 //                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active Order Already Exists!");
 //            }
-//        }
+        }
 
         double total = product.getPrice() * 0.0725;
         double scale = Math.pow(10, 2);
         double rounded = Math.round(total + scale) / scale;
-        if (if (active == null) ){
-
+        double running_total = 0.0;
+        if (active != null) {
+            running_total = active.getTotal() + rounded;
+        } else {
+            running_total = rounded;
         }
-        double running_total = active.getTotal() + total;
+
+        active.setStatus(Status.IN_PROGRESS);
+        active.addProduct(product);
         active.setTotal(running_total);
+        repository.save(active);
+        orders.put(userid, active);
 
-//        .setStatus("Ready for Payment.");
-        PhilzCart newOrder = new PhilzCart();
-        newOrder.setUserId(userid);
-        newOrder.setOrder(product);
-        newOrder.setStatus(Status.IN_PROGRESS);
-        repository.save(newOrder);
-        orders.put(userid, newOrder);
-
-        return newOrder;
+        return active;
     }
 //
 //    /**
