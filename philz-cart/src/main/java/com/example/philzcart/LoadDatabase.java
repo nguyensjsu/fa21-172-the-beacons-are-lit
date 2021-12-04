@@ -1,4 +1,7 @@
 package com.example.philzcart;
+import com.example.testing.User;
+import com.example.testing.UserRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

@@ -1,6 +1,5 @@
-package com.example.philzcart;
+package com.example.testing;
 
-import com.example.philzcart.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
