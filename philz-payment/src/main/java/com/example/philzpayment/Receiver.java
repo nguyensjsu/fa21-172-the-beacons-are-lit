@@ -1,4 +1,4 @@
-package com.example.springrabbitmqworkers;
+package com.example.philzpayment;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.util.StopWatch;

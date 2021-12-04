@@ -1,4 +1,4 @@
-package com.example.philzapidb.api;
+package com.example.philzpayment;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -22,7 +22,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import com.example.philzapidb.springcybersource.*;
+import com.example.philzcart.PhilzCart;
+import com.example.springcybersource.*;
 import org.springframework.beans.factory.annotation.Value;
 
 
@@ -134,7 +135,7 @@ public class PaymentsController {
 
     // connect modelattribute command to front end
 
-    @GetMapping
+    @GetMapping("api/payment/{userid}")
     public String getAction( /*@ModelAttribute("command")*/ PaymentsCommand command, PhilzOrder order,
                             Model model) {
 
@@ -142,7 +143,7 @@ public class PaymentsController {
 
     }
 
-    @PostMapping
+    @PostMapping("api/payment/{userid}")
     public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsCommand command, PhilzOrder order,  
                             @RequestParam(value="action", required=true) String action,
                             Errors errors, Model model, HttpServletRequest request) {

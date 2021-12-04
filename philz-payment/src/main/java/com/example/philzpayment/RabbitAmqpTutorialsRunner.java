@@ -1,4 +1,4 @@
-package com.example.springrabbitmqworkers;
+package com.example.philzpayment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.example.springrabbitmqworkers;
+package com.example.philzpayment;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
