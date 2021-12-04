@@ -16,6 +16,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(path = "rest")
 public class PhilzCartController {
 
     @Autowired
