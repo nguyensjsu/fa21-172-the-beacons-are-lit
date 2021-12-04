@@ -69,6 +69,17 @@ public class CustomerController {
 
 
     /**
+     * Retrieve the register/signup page
+     * @param model potential model parameters to pass
+     * @param session httpsession for future error handling
+     * @return register page name
+     */
+    @GetMapping("api/register")
+    public String getRegisterPage(Model model, HttpSession session){
+        return "register"; 
+    }
+
+    /**
      * Registers a new user 
      * @param newUser user to be registered
      * @return a repository save.
