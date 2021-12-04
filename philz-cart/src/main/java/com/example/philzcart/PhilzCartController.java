@@ -29,7 +29,8 @@ public class PhilzCartController {
         private String status;
     }
 
-    private HashMap<String, PhilzCart> orders = new HashMap<>(); // String - id, PhilzOrder - order itself
+
+    private HashMap<Long, PhilzProducts> orders = new HashMap<>(); // String - id, PhilzOrder - order itself
 
     PhilzCartController(PhilzProductRepository productRepository, PhilzCartRepository repository) {
         this.productRepository = productRepository;
@@ -47,17 +48,28 @@ public class PhilzCartController {
     //    api/cart/{userid} @Get
     //Get info about specific active order
     @GetMapping("/cart/{userid}")
-    PhilzCart getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
-        PhilzCart active = repository.findByUserId(userid);
+    PhilzProducts getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
+        Long user = repository.findByUserId(userid).getId();
+        PhilzProducts active = orders.get(user);
         if (active != null) {
-            return active;
+            return active ;
         } else {
-            PhilzCart cart = new PhilzCart();
-            cart.setUserId(userid);
-            repository.save(cart);
-            return cart;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!") ;
         }
     }
+
+//    @GetMapping("/cart/{userid}")
+//    PhilzCart getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
+//        PhilzCart active = repository.findByUserId(userid);
+//        if (active != null) {
+//            return active;
+//        } else {
+//            PhilzCart cart = new PhilzCart();
+//            cart.setUserId(userid);
+//            repository.save(cart);
+//            return cart;
+//        }
+//    }
 
 //    api/cart/{userid}
 //    api/cart/{userid} @Delete #delete entire cart
@@ -83,20 +95,21 @@ public class PhilzCartController {
         double total = product.getPrice() * 0.0725;
         double scale = Math.pow(10, 2);
         double rounded = Math.round(total + scale) / scale;
-        double running_total = 0.0;
-        if (active != null) {
-            running_total = active.getTotal() + rounded;
-        } else {
-            running_total = rounded;
-        }
+        double running_total = total + active.getTotal() + rounded;
 
-        active.setStatus(Status.IN_PROGRESS);
+
+//        order.setStatus("Ready for Payment.");
+//        StarbucksOrder new_order = starbucksOrderRepository.save(order);
+//        orders.put(regid, new_order);
+
         active.addProduct(product);
+        active.setUserId(userid);
+        active.setStatus(Status.IN_PROGRESS);
         active.setTotal(running_total);
-        repository.save(active);
-        orders.put(userid, active);
+        PhilzCart new_order = repository.save(active);
+        orders.put(new_order.getId(), product);
 
-        return active;
+        return new_order;
     }
 //
 //    /**

@@ -9,7 +9,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.context.annotation.Primary;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,12 +24,12 @@ import java.util.Map;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 @Getter
-public class PhilzCart {
+public class PhilzCart implements Serializable {
 
     private @Id @GeneratedValue Long id;
 
-    @OneToMany
-    private List<PhilzProducts> order;
+    @OneToMany(fetch = FetchType.EAGER, targetEntity=PhilzProducts.class, mappedBy="id")
+    private List<PhilzProducts> order = new ArrayList<>();
 
     private String userId;
 
@@ -35,7 +37,8 @@ public class PhilzCart {
 
     private double total;
 
-    public void addProduct(PhilzProducts product) {
-        order.add(product);
-    }
+//    public void addProduct(PhilzProducts product) {
+//        this.order.add(product);
+//    }
+
 }
