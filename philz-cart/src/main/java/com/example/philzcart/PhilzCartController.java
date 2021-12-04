@@ -81,10 +81,10 @@ public class PhilzCartController {
      * @return List of PhilzProducts
      */
     @GetMapping("api/cart/{userid}")
-    PhilzCart getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
+    double getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
         PhilzCart active = repository.findByUserId(userid);
         if (active != null) {
-            return active;
+            return active.getTotal();
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!") ;
         }
