@@ -68,6 +68,11 @@ public class CustomerController {
     } 
 
 
+    /**
+     * Registers a new user 
+     * @param newUser user to be registered
+     * @return a repository save.
+     */
     @PostMapping("api/register/{email}")
     public UserModel register(@RequestBody UserModel newUser){
         //Check if there's an existing user
