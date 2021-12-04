@@ -40,5 +40,8 @@ public class PhilzCart implements Serializable {
     public void addProduct(List<PhilzProducts> products) {
         this.order.addAll(products);
     }
+    public List<PhilzProducts> getProduct(){
+        return this.order;
+    }
 
 }

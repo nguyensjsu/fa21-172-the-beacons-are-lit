@@ -55,7 +55,7 @@ public class PhilzCartController {
     //    api/cart/{userid} @Get
     //Get info about specific active order
     @GetMapping("/cart/{userid}")
-    PhilzCart getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
+    List<PhilzProducts> getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
         PhilzCart active = repository.findByUserId(userid);
         for (PhilzProducts product : productsList){
             System.out.println(product);
@@ -64,25 +64,12 @@ public class PhilzCartController {
             System.out.println(products);
         }
         if (active != null) {
-            return active ;
+            return active.getOrder();
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!") ;
         }
 
     }
-
-//    @GetMapping("/cart/{userid}")
-//    PhilzCart getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
-//        PhilzCart active = repository.findByUserId(userid);
-//        if (active != null) {
-//            return active;
-//        } else {
-//            PhilzCart cart = new PhilzCart();
-//            cart.setUserId(userid);
-//            repository.save(cart);
-//            return cart;
-//        }
-//    }
 
 //    api/cart/{userid}
 //    api/cart/{userid} @Delete #delete entire cart
@@ -120,33 +107,13 @@ public class PhilzCartController {
 
         return new_order;
     }
-//
-//    /**
-//     * Private, used by new order.
-//     * Determines the pricing for the drink including tax
-//     * @param drink Drink type
-//     * @param size Size of the drink
-//     * @return Price for the drink including tax
-//     */
 
-//
-//    // Get info about specific active order
-//    @GetMapping("/order/register/{regid}")
-//    PhilzCart getActiveOrder(@PathVariable String regid, HttpServletResponse response) {
-//        PhilzCart active = this.orders.get(regid);
+    // Clear a specific order
+//    @DeleteMapping("/order/{userid}/delete")
+//    Message deleteActiveOrder(@PathVariable String userid) {
+//        PhilzCart active = this.orders.get(userid);
 //        if (active != null) {
-//            return active;
-//        } else {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
-//        }
-//    }
-//
-//    // Clear a specific order
-//    @DeleteMapping("/order/register/{regid}")
-//    Message deleteActiveOrder(@PathVariable String regid) {
-//        PhilzCart active = this.orders.get(regid);
-//        if (active != null) {
-//            this.orders.remove(regid);
+//            this.orders.remove(userid);
 //            Message msg = new Message();
 //            msg.setStatus("Active Order Cleared!");
 //            return msg;
@@ -154,55 +121,15 @@ public class PhilzCartController {
 //            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
 //        }
 //    }
-//
-//    // Pay for active order
-//    @PostMapping("/order/register/{regid}/pay/{cardnum}")
-//    PhilzCard processOrder(@PathVariable String regid, @PathVariable String cardnum) {
-//        System.out.println("Pay for order " + regid + " with card: " + cardnum);
-//
-//        PhilzOrder active = this.orders.get(regid);
-//
-//        if (active == null) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
-//        }
-//        if (cardnum.equals("")) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Card Number Not Provided!");
-//        }
-//        if (active.getStatus().startsWith("Paid with Card")) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active Order Already Cleared!");
-//        }
-//
-//        PhilzCard card = this.cardsRepository.findByCardNumber(cardnum);
-//        if (card == null) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Card Not Found!");
-//        }
-//        if (!card.isActivated()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Card Not Activated!");
-//        }
-//
-//        double price = active.getTotal();
-//        double balance = card.getBalance();
-//        if (balance - price < 0) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient Fund on Card!");
-//        }
-//        double newBalance = balance - price;
-//        card.setBalance(newBalance);
-//        String status = "Paid with Card: " + cardnum + " Balance: $" + newBalance + ".";
-//        active.setStatus(status);
-//        this.cardsRepository.save(card);
-//        this.repository.save(active);
-//        return card;
-//    }
-//
 
-//
+
 //    // delete all orders
-//    @DeleteMapping("/orders")
-//    Message deleteAll() {
-//        this.repository.deleteAllInBatch();
-//        this.orders.clear();
-//        Message msg = new Message();
-//        msg.setStatus("All Orders Deleted!");
-//        return msg;
-//    }
+    @DeleteMapping("/cart/{userid}/delete")
+    Message deleteAll() {
+        this.repository.deleteAllInBatch();
+        this.orders.clear();
+        Message msg = new Message();
+        msg.setStatus("All Orders Deleted!");
+        return msg;
+    }
 }
