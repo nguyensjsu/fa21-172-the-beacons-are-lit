@@ -36,6 +36,9 @@ public class PhilzCart {
     private double total;
 
     public void addProduct(PhilzProducts product) {
-        order.add(product);
+        this.order.add(product);
+    }
+    public void removeProduct(PhilzProducts product){
+        this.order.remove(product); 
     }
 }
