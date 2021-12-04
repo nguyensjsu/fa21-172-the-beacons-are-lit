@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,8 +18,13 @@ import lombok.Setter;
 @RestController
 public class PhilzCartController {
 
+    @Autowired
     private final PhilzCartRepository repository;
+
+    @Autowired
     private final PhilzProductRepository productRepository;
+
+
 
     /**
      * Message Object
@@ -31,6 +37,7 @@ public class PhilzCartController {
 
 
     private HashMap<Long, PhilzProducts> orders = new HashMap<>(); // String - id, PhilzOrder - order itself
+    private List<PhilzProducts> productsList = new ArrayList<>();
 
     PhilzCartController(PhilzProductRepository productRepository, PhilzCartRepository repository) {
         this.productRepository = productRepository;
@@ -48,14 +55,20 @@ public class PhilzCartController {
     //    api/cart/{userid} @Get
     //Get info about specific active order
     @GetMapping("/cart/{userid}")
-    PhilzProducts getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
-        Long user = repository.findByUserId(userid).getId();
-        PhilzProducts active = orders.get(user);
+    PhilzCart getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
+        PhilzCart active = repository.findByUserId(userid);
+        for (PhilzProducts product : productsList){
+            System.out.println(product);
+        }
+        for (PhilzProducts products : orders.values()){
+            System.out.println(products);
+        }
         if (active != null) {
             return active ;
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!") ;
         }
+
     }
 
 //    @GetMapping("/cart/{userid}")
@@ -86,28 +99,24 @@ public class PhilzCartController {
         PhilzCart active = repository.findByUserId(userid);
         if (active == null) {
             active = new PhilzCart();
-//            System.out.println("Active order " + userid + ": " + coffee);
-//            if (active.getStatus().equals("Ready for Payment")) {
-//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active Order Already Exists!");
-//            }
+            productsList = new ArrayList<>();
         }
 
         double total = product.getPrice() * 0.0725;
         double scale = Math.pow(10, 2);
         double rounded = Math.round(total + scale) / scale;
-        double running_total = total + active.getTotal() + rounded;
+        double running_total = product.getPrice() + active.getTotal() + rounded;
 
 
-//        order.setStatus("Ready for Payment.");
-//        StarbucksOrder new_order = starbucksOrderRepository.save(order);
-//        orders.put(regid, new_order);
-
-        active.addProduct(product);
+        productsList.add(product);
+        active.addProduct(productsList);
         active.setUserId(userid);
+
         active.setStatus(Status.IN_PROGRESS);
         active.setTotal(running_total);
         PhilzCart new_order = repository.save(active);
         orders.put(new_order.getId(), product);
+
 
         return new_order;
     }

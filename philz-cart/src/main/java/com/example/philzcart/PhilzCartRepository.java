@@ -1,6 +1,7 @@
 package com.example.philzcart;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 

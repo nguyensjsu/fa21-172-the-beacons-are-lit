@@ -29,4 +29,5 @@ public class PhilzCartApplication {
 		factory.setResources(new Resource[]{new ClassPathResource("json/drinks.json")});
 		return factory;
 	}
+
 }
