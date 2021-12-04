@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,6 +15,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(path = "api")
 public class PhilzCartController {
 
     private final PhilzCartRepository repository;
@@ -70,7 +72,7 @@ public class PhilzCartController {
     /**
      * Gets all the available product types to render. 
      */
-    @GetMapping("api/products")
+    @GetMapping("products")
     List<PhilzProduct> getAllProductTypes(){
         return this.productList; 
     }
@@ -81,7 +83,7 @@ public class PhilzCartController {
      * @param response Httpservlet response error handling?
      * @return returns a list of all items in the user's cart
      */
-    @GetMapping("api/cart/{email}")
+    @GetMapping("cart/{email}")
     List<PhilzProduct> getIndividualCart(@PathVariable String email, HttpServletResponse response) {
        
         //Do some verification check that this is that person's cart and not someone else's
@@ -101,7 +103,7 @@ public class PhilzCartController {
      * @param item the cart item to add
      * @param response http response
      */
-    @PostMapping("api/cart/{email}/{item}")
+    @PostMapping("cart/{email}/{item}")
     void addItemToCart(@PathVariable String email, @PathVariable PhilzProduct item, HttpServletResponse response){
         this.cartItems.get(email).add(item); 
     }
@@ -110,7 +112,7 @@ public class PhilzCartController {
 //    api/cart/{userid} @Delete #delete entire cart
 
 //    // Create new order
-    @PostMapping("api/cart/{email}")
+    @PostMapping("cart/{email}")
     @ResponseStatus(HttpStatus.CREATED)
     PhilzCart newOrder(@PathVariable String userid, @RequestBody PhilzProducts coffee) {
 

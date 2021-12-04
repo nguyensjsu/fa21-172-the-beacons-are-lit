@@ -18,32 +18,18 @@ import org.springframework.web.cors.*;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	private JwtTokenProvider tokenProvider;
-
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors();
-		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authorizeRequests().antMatchers("/user/*").permitAll().anyRequest().authenticated();
-		http.apply(new JwtTokenConfigurer(tokenProvider));
+    	http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 	}
+	
 
 	// @Override
 	// protected void configure(HttpSecurity http) throws Exception {
-    // 	http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+	// 	http.cors();
+	// 	http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+	// 			.authorizeRequests().antMatchers("/*").permitAll().anyRequest().authenticated();
+		
 	// }
 
 }
