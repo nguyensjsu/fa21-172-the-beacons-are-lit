@@ -37,8 +37,8 @@ public class PhilzCart implements Serializable {
 
     private double total;
 
-//    public void addProduct(PhilzProducts product) {
-//        this.order.add(product);
-//    }
+    public void addProduct(PhilzProducts product) {
+        this.order.add(product);
+    }
 
 }
