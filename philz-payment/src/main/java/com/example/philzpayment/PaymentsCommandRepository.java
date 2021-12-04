@@ -1,4 +1,4 @@
-package com.example.philzapidb.api;
+package com.example.philzpayment;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

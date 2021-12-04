@@ -1,4 +1,4 @@
-package com.example.philzapidb.springcybersource;
+package com.example.springcybersource;
 
 public class AuthRequest extends Payload {
 

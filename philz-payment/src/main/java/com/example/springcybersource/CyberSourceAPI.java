@@ -1,4 +1,4 @@
-package com.example.philzapidb.springcybersource;
+package com.example.springcybersource;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
