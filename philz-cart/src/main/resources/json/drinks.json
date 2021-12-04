@@ -1,0 +1,93 @@
+[
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "JACOBS",
+    "roast": "dark"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "ARABIC",
+    "roast": "dark"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "ECSTATIC",
+    "roast": "dark"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "ETHER",
+    "roast": "dark"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "TURKISH",
+    "roast": "dark"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "GRATITUDE",
+    "roast": "medium"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "TESORA",
+    "roast": "medium"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "ALARM",
+    "roast": "medium"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "JULIES",
+    "roast": "medium"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "PHILHARMONIC",
+    "roast": "medium"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "PHILTEREDSOUL",
+    "roast": "medium"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "SILKEN",
+    "roast": "medium"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "AMBROSIA",
+    "roast": "light"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "DANCING",
+    "roast": "light"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "MANHATTAN",
+    "roast": "light"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "COLUMBIA",
+    "roast": "decaf"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "ETHIOPIA",
+    "roast": "decaf"
+  },
+  {
+    "_class": "com.example.philzcart.PhilzProducts",
+    "name": "HOUSE",
+    "roast": "decaf"
+  }
+
+]
