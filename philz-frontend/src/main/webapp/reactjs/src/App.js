@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NavigationBar from "./components/NavigationBar";
 import Welcome from "./components/Welcome";
-//import Book from "./components/Book/Book";
-//import BookList from "./components/Book/BookList";
+import Product from "./components/Product/Product";
+import ProductList from "./components/Product/ProductList";
 //import UserList from "./components/User/UserList";
 import Register from "./components/User/Register";
 import Login from "./components/User/Login";
@@ -35,6 +35,8 @@ const App = () => {
               <Route path="/home" exact component={Home} />
               <Route path="/register" exact component={Register} />
               <Route path="/login" exact component={Login} />
+              <Route path="/list" exact component={ProductList} />
+              <Route path="/add" exact component={Product} />
               <Route
                 path="/logout"
                 exact
