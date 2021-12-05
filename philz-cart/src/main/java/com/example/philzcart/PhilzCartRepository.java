@@ -7,6 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-interface PhilzCartRepository extends JpaRepository<PhilzCart, Long> {
+public interface PhilzCartRepository extends JpaRepository<PhilzCart, Long> {
     PhilzCart findByUsername(String username);
 }
