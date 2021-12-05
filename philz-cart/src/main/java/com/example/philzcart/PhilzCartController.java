@@ -8,8 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 //import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +30,9 @@ public class PhilzCartController {
 
     @Autowired
     private final PhilzProductRepository productRepository;
-    private List<PhilzProduct> productList;
+
+    private HashMap<Long, List<PhilzProducts>> orders = new HashMap<>(); // String - id, PhilzOrder - order itself
+    private List<PhilzProducts> productsList = new ArrayList<>();
 
     /**
      * PhilzCart constructor
@@ -47,32 +54,37 @@ public class PhilzCartController {
         private String status;
     }
 
-
-    private HashMap<Long, List<PhilzProducts>> orders = new HashMap<>(); // String - id, PhilzOrder - order itself
-    private List<PhilzProducts> productsList = new ArrayList<>();
-
-    @GetMapping("/products")
-    Iterable<PhilzProducts> getAllOrders() {
-        return this.productRepository.findAll();
-    }
-
-
     /**
-     * @GetMapping("/product")
-        Iterable<PhilzProducts> getAllOrders() {
-        return this.productRepository.findAll();
-    }*/
-
-    /**
-     * Gets all the available product types to render. 
+     * Gets all existing product types
+     * @return
      */
-    @GetMapping("api/products")
-    List<PhilzProduct> getAllProductTypes(){
-        return this.productList; 
+    @GetMapping("/products")
+    Iterable<PhilzProducts> getAllProducts() {
+        return this.productRepository.findAll();
     }
 
+      /**
+     * Returns details about a single product
+     * @param productID the product id from 0-21
+     * @return Response Entity with product as a json string and http status
+     */
+    @GetMapping(value="/products/{productid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<String> getProduct(@PathVariable String productID){
+        System.out.println("getProduct: " + productID); 
+        JSONObject jsonObject = new JSONObject(); 
+        try{
+            jsonObject.put("product",  this.productsList.get(Integer.parseInt(productID))); 
+            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
+        }catch(JSONException e){
+            try {
+				jsonObject.put("exception", e.getMessage());
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+			return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-    //Get info about specific active order
 
     /**
      * Get the current user's cart
@@ -104,7 +116,7 @@ public class PhilzCartController {
 
         System.out.println("Creating order " + username + ": " + coffee);
 
-        PhilzProducts product = productRepository.findAllByName(coffee.name);
+        PhilzProducts product = productRepository.findByName(coffee.getName());
 
         PhilzCart active = repository.findByUsername(username);
         if (active == null) {
