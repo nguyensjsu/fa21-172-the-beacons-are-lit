@@ -1,6 +1,6 @@
 package com.example.philzcart;
 
-enum Status {
+public enum Status {
 
     IN_PROGRESS, //
     COMPLETED, //
