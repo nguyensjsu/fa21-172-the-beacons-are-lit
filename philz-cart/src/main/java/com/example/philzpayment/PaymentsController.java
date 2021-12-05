@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.example.cybersource.*;
 import com.example.philzcart.PhilzCart;
 import com.example.philzcart.Status;
+import com.example.philzcart.PhilzCartRepository;
 
 import org.springframework.beans.factory.annotation.Value;
 
@@ -133,16 +135,19 @@ public class PaymentsController {
     @Autowired
     private PaymentsCommandRepository repository;
 
+    @Autowired
+    private PhilzCartRepository cartRepository;
+
 
     @GetMapping("api/payment/{username}")
-    public String getAction( PaymentsCommand command, PhilzCart cart, Model model) {
+    public String getAction( PaymentsCommand command, Model model) {
 
         return "payment" ;
 
     }
 
     @PostMapping("api/payment/{username}")
-    public String postAction(@Validated PaymentsCommand command, PhilzCart cart,  
+    public String postAction(@PathVariable String username, @Validated PaymentsCommand command,   
                             @RequestParam(value="action", required=true) String action,
                             Errors errors, Model model, HttpServletRequest request) {
     
@@ -187,6 +192,7 @@ public class PaymentsController {
             return "payment";
         }
 
+        PhilzCart cart = cartRepository.findByUsername(username);
         int min = 1239871;
         int max = 9999999;
         int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
@@ -256,7 +262,9 @@ public class PaymentsController {
 
         }        
 
+        
         cart.setStatus(Status.COMPLETED);
+        cartRepository.save(cart);
         repository.save(command);
      
 
