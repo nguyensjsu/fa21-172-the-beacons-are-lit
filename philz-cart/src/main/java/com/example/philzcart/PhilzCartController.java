@@ -98,7 +98,7 @@ public class PhilzCartController {
      * @param coffee
      * @return
      */
-    @PostMapping("api/cart/{username}")
+    @PostMapping("api/acart/{username}")
     @ResponseStatus(HttpStatus.CREATED)
     PhilzCart newOrder(@PathVariable String username, @RequestBody PhilzProducts coffee) {
 

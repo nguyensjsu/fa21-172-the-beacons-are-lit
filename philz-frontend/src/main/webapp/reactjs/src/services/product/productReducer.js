@@ -7,6 +7,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case BT.SAVE_PRODUCT_REQUEST:
     case BT.FETCH_PRODUCT_REQUEST:
       return {
         ...state,

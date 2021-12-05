@@ -4,7 +4,7 @@ import authToken from "../utils/authToken";
 import { Alert } from "react-bootstrap";
 import productImage from '../productImage.json';
 import axios from "axios";
-
+import {Link } from "react-router-dom";
 
 const Home = () => {
   if (localStorage.jwtToken) {
@@ -12,13 +12,14 @@ const Home = () => {
   }
 
   const auth = useSelector((state) => state.auth);
-
   const [products, ProductList] = useState("");
+  const [cart, setCart] = useState("")
 
   useEffect(() => {
     if (products === "") {
       axios.get("http://localhost:8081/rest/products").then((response) => {
         ProductList(response.data);
+        console.log("data", response.data);
       });
     }
   }, [products]);
@@ -30,7 +31,7 @@ const Home = () => {
     </Alert>
         <div className="hero is-primary" text="light">
           <div className="hero-body container">
-            <h4 className="title">Our Products</h4>
+            <h4 className="title">Browse Our Products</h4>
           </div>
         </div>
         <br />
@@ -47,10 +48,16 @@ const Home = () => {
                         })}
                       </div>
                       <div className="media-content">
-                      <b style={{ textTransform: "capitalize" }}>Coffee Name: {p.name}</b>
+                      <b style={{ textTransform: "capitalize"}} >
+                        Coffee Name: {p.name}
+                      </b>
                       <div>Blend: {p.roast}</div>
+                      <div>Price: ${p.price}</div>
+                      <button><Link to={"add"} className="nav-link"> Add to Cart </Link>
+                        See Detail
+                      </button>
                       <p>
-                       <button>Add to Cart</button>
+                      
                       </p>
                       </div>
                     </div>

@@ -35,14 +35,12 @@ const NavigationBar = () => {
     <>
       <Nav className="mr-auto">
         <Link to={"add"} className="nav-link">
-          Add Book
+          Add To Cart
         </Link>
         <Link to={"list"} className="nav-link">
-          Book List
+          Cart List
         </Link>
-        <Link to={"users"} className="nav-link">
-          User List
-        </Link>
+        
       </Nav>
       <Nav className="navbar-right">
         <Link to={"logout"} className="nav-link" onClick={logout}>
@@ -56,12 +54,12 @@ const NavigationBar = () => {
     <Navbar bg="dark" variant="dark">
       <Link to={auth.isLoggedIn ? "home" : ""} className="navbar-brand">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Book_icon_1.png"
+          src="https://i.pinimg.com/474x/40/09/57/40095759e0caee0ad4401ac7daf29bc7.jpg"
           width="25"
           height="25"
           alt="brand"
         />{" "}
-        Book Store
+        Coffee Bean Store
       </Link>
       {auth.isLoggedIn ? userLinks : guestLinks}
     </Navbar>
