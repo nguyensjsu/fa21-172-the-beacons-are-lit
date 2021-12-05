@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 interface PhilzCartRepository extends JpaRepository<PhilzCart, Long> {
-    PhilzCart findByUserId(String userid);
+    PhilzCart findByUsername(String username);
 }

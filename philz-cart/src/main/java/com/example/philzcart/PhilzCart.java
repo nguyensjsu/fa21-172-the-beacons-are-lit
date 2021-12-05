@@ -24,15 +24,12 @@ public class PhilzCart implements Serializable {
     private @Id @GeneratedValue Long id;
     @OneToMany(fetch = FetchType.EAGER, targetEntity=PhilzProducts.class, mappedBy="id")
     private List<PhilzProducts> order = new ArrayList<>();
-    private String userId;
+    private String username;
     private Status status;
     private double total;
 
     public void addProduct(List<PhilzProducts> products) {
         this.order.addAll(products);
-    }
-    public List<PhilzProducts> getProduct(){
-        return this.order;
     }
 
 }
