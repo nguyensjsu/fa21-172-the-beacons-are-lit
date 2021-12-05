@@ -48,7 +48,7 @@ public class PhilzCartController {
     }
 
 
-    private HashMap<Long, PhilzProducts> orders = new HashMap<>(); // String - id, PhilzOrder - order itself
+    private HashMap<Long, List<PhilzProducts>> orders = new HashMap<>(); // String - id, PhilzOrder - order itself
     private List<PhilzProducts> productsList = new ArrayList<>();
 
     @GetMapping("/products")
@@ -76,15 +76,16 @@ public class PhilzCartController {
 
     /**
      * Get the current user's cart
-     * @param userid: Current user
+     * @param username: Current user
      * @param response
      * @return List of PhilzProducts
      */
-    @GetMapping("api/cart/{userid}")
-    double getActiveOrder(@PathVariable String userid, HttpServletResponse response) {
-        PhilzCart active = repository.findByUserId(userid);
+    @GetMapping("api/cart/{username}")
+    List<PhilzProducts> getActiveOrder(@PathVariable String username, HttpServletResponse response) {
+        PhilzCart active = repository.findByUsername(username);
+
         if (active != null) {
-            return active.getTotal();
+            return productsList;
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!") ;
         }
@@ -93,19 +94,19 @@ public class PhilzCartController {
 
     /**
      * Add PhilzProducts to PhilzCart
-     * @param userid
+     * @param username
      * @param coffee
      * @return
      */
-    @PostMapping("api/cart/{userid}")
+    @PostMapping("api/cart/{username}")
     @ResponseStatus(HttpStatus.CREATED)
-    PhilzCart newOrder(@PathVariable String userid, @RequestBody PhilzProducts coffee) {
+    PhilzCart newOrder(@PathVariable String username, @RequestBody PhilzProducts coffee) {
 
-        System.out.println("Creating order " + userid + ": " + coffee);
+        System.out.println("Creating order " + username + ": " + coffee);
 
         PhilzProducts product = productRepository.findAllByName(coffee.name);
 
-        PhilzCart active = repository.findByUserId(userid);
+        PhilzCart active = repository.findByUsername(username);
         if (active == null) {
             active = new PhilzCart();
             productsList = new ArrayList<>();
@@ -118,11 +119,13 @@ public class PhilzCartController {
         double running_total = product.getPrice() + active.getTotal() + rounded;
         productsList.add(product);
         active.addProduct(productsList);
-        active.setUserId(userid);
+        active.setUsername(username);
         active.setStatus(Status.IN_PROGRESS);
         active.setTotal(running_total);
         PhilzCart new_order = repository.save(active);
-        orders.put(new_order.getId(), product);
+
+
+        orders.put(new_order.getId(), productsList);
 
         return new_order;
     }
@@ -134,7 +137,7 @@ public class PhilzCartController {
      * Delete orders
      * @return
      */
-    @DeleteMapping("api/cart/{userid}/delete")
+    @DeleteMapping("api/cart/{username}/delete")
     Message deleteAll() {
         this.repository.deleteAllInBatch();
         this.orders.clear();
