@@ -63,6 +63,7 @@ const productFailure = (error) => {
     type: BT.PRODUCT_FAILURE,
     payload: error,
   };
+};
 // =======
 // import * as BT from "./productTypes";
 // import axios from "axios";
