@@ -11,6 +11,9 @@
 
 _format_version: "1.1"
 
+#Configure service called philz, proxy anything on root (path: /)
+#Routes through /api (routes:)
+#use api key authentication
 services:
 - name: philz
   protocol: http
@@ -24,6 +27,7 @@ services:
     paths:
     - /api
     
+#For api key auth plugin 
 consumers:
 - username: apiclient
   keyauth_credentials:
