@@ -28,7 +28,7 @@ public class UserServiceImpl implements IService<User> {
 	}
 
 	@Override
-	public Optional<User> findById(Long id) {
+	public Optional<User> findById(Integer id) {
 		return userRepository.findById(id);
 	}
 
@@ -45,7 +45,7 @@ public class UserServiceImpl implements IService<User> {
 	}
 
 	@Override
-	public String deleteById(Long id) {
+	public String deleteById(Integer id) {
 		JSONObject jsonObject = new JSONObject();
 		try {
 			userRepository.deleteById(id);
