@@ -17,7 +17,12 @@ public class UserServiceImpl implements IService<User> {
 
 	@Override
 	public Collection<User> findAll() {
-		return userRepository.findAll();
+		List<User> allUsers = new ArrayList<User>(); 
+
+		//Conversion to SQL from JPA therefore convert iterable to collection
+		this.userRepository.findAll().forEach(allUsers::add);
+
+		return allUsers; 
 	}
 
 	@Override
@@ -27,7 +32,14 @@ public class UserServiceImpl implements IService<User> {
 
 	@Override
 	public User saveOrUpdate(User user) {
-		return userRepository.saveAndFlush(user);
+		User test = this.userRepository.findByEmail(user.getEmail()); 
+		if(test == null){
+			System.out.println("Saving user" + user.getEmail()); 
+		}else{
+			System.out.println("Updating user" + user.getEmail()); 
+		}
+
+		return this.userRepository.save(user); //Crud repository auto saves/updates with .save()
 	}
 
 	@Override

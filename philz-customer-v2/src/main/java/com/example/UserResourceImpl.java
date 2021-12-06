@@ -45,7 +45,7 @@ public class UserResourceImpl {
 		try {
 			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 			//user.setRole(roleRepository.findByName(ConstantUtils.USER.toString()));
-			User savedUser = userRepository.saveAndFlush(user);
+			User savedUser = userRepository.save(user);
 			jsonObject.put("message", savedUser.getName() + " saved succesfully");
 			return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
 		} catch (JSONException e) {
@@ -102,7 +102,7 @@ public class UserResourceImpl {
 
 			if(securityQuestionAnswer.toUpperCase().equals(user.getSecurityQuestionAnswer().toUpperCase())){
 				user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
-				this.userRepository.saveAndFlush(user); 
+				this.userRepository.save(user); 
 				jsonObject.put("message", "set new password for: " + user.getEmail() + " Successfully");
 				return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
 			}else{
