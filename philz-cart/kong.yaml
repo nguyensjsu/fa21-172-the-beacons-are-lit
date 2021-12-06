@@ -22,7 +22,7 @@ services:
   routes:
   - name: api
     paths:
-    - /api
+    - /rest
     
 consumers:
 - username: apiclient

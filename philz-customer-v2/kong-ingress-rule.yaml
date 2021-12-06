@@ -8,7 +8,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /api
+      - path: /api/user
         backend:
           serviceName:philz-customer-service
           servicePort: 80

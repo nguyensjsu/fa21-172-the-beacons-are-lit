@@ -25,7 +25,7 @@ services:
   routes:
   - name: api
     paths:
-    - /api
+    - /api/user
     
 #For api key auth plugin 
 consumers:

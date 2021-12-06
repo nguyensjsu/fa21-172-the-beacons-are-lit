@@ -40,7 +40,6 @@ public class UserResourceImpl {
 
 	@PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> register(@RequestBody User user) {
-		log.info("UserResourceImpl : register");
 		JSONObject jsonObject = new JSONObject();
 		try {
 			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
