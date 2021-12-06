@@ -30,6 +30,7 @@ const Register = (props) => {
     email: "",
     password: "",
     mobile: "",
+    securityQuestionAnswer: "",
   };
 
   const [user, setUser] = useState(initialState);
@@ -151,6 +152,26 @@ const Register = (props) => {
                       onChange={userChange}
                       className={"bg-dark text-white"}
                       placeholder="Enter Mobile Number"
+                    />
+                  </InputGroup>
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col}>
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>
+                        <FontAwesomeIcon icon={faPhone} />
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                        autoComplete="off"
+                        type="text"
+                        name="securityQuestionAnswer"
+                        value={user.securityQuestionAnswer}
+                        onChange={userChange}
+                        className={"bg-dark text-white"}
+                        placeholder="Enter Security QA"
                     />
                   </InputGroup>
                 </Form.Group>

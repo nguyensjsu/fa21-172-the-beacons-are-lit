@@ -35,10 +35,10 @@ const NavigationBar = () => {
     <>
       <Nav className="mr-auto">
         <Link to={"add"} className="nav-link">
-          Add To Cart
+          Purchase
         </Link>
         <Link to={"list"} className="nav-link">
-          Cart List
+          Cart List (Not implemenet)
         </Link>
         
       </Nav>

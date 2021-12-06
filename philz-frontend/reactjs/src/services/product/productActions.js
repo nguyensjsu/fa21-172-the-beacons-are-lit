@@ -16,21 +16,40 @@ export const fetchProduct = () => {
       });
   };
 };
+
+//original
+// export const saveProduct = (product) => {
+//   return (dispatch) => {
+//     dispatch({
+//       type: BT.SAVE_PRODUCT_REQUEST,
+//     });
+//     axios
+//       .post("http://localhost:8081/rest/api/acart/{username}", product)
+//       .then((response) => {
+//         dispatch(productSuccess(response.data));
+//       })
+//       .catch((error) => {
+//         dispatch(productFailure(error));
+//       });
+//   };
+// };
+
 export const saveProduct = (product) => {
   return (dispatch) => {
     dispatch({
       type: BT.SAVE_PRODUCT_REQUEST,
     });
     axios
-      .post("http://localhost:8081/rest/api/acart/{username}", product)
-      .then((response) => {
-        dispatch(productSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(productFailure(error));
-      });
+        .post("http://localhost:8081/apple/api/payment", product)
+        .then((response) => {
+          dispatch(productSuccess(response.data));
+        })
+        .catch((error) => {
+          dispatch(productFailure(error));
+        });
   };
 };
+
 const productSuccess = (product) => {
   return {
     type: BT.PRODUCT_SUCCESS,

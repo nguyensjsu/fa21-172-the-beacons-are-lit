@@ -19,7 +19,7 @@ const Welcome = (props) => {
     <>
     <div className="hero is-primary" text="light">
       <div className="hero-body container">
-        <h4 className="title">Our Products</h4>
+        <h4 className="title">Our Products. Sign in to purchase!</h4>
       </div>
     </div>
     <br />

@@ -53,7 +53,7 @@ const Home = () => {
                       </b>
                       <div>Blend: {p.roast}</div>
                       <div>Price: ${p.price}</div>
-                      <button><Link to={"add"} className="nav-link"> Buy </Link></button>
+                      <button hidden><Link to={"add"} className="nav-link"> Buy </Link></button>
                       <p>
                       </p>
                       </div>
