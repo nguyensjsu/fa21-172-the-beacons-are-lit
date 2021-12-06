@@ -9,6 +9,12 @@ clean:
 	docker stop philz-customer
 	docker rm philz-customer
 
+# Docker
+
+docker-build: jar
+	docker build -t philz-customer .
+	docker images
+
 docker-shell:
 	docker exec -it philz-customer bash 
 
