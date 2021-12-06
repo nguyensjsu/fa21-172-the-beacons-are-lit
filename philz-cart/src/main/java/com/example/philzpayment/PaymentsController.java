@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -154,14 +155,15 @@ public class PaymentsController {
     public ResponseEntity<String> makePayment(@PathVariable String productid, @RequestBody PaymentsInfo paymentsInfo,    
                             Errors errors, HttpServletRequest request) {
         
-        PhilzProducts products = repository.findByProductID(productid);
+        // Optional<PhilzProducts> product = repository.findById(productid);
+        // PhilzProducts products = product.get();
 
         JSONObject jsonProduct = new JSONObject();
             
         JSONObject jsonObject = new JSONObject();
         try{
 
-            jsonProduct.put("product", products);
+            // jsonProduct.put("product", products);
 
             CyberSourceAPI.setHost( apiHost );
             CyberSourceAPI.setKey( merchantKeyId );
@@ -255,7 +257,7 @@ public class PaymentsController {
     
             if (authValid && captureValid){
                 jsonObject.put("message","Successful Payment! for " + paymentsInfo.email());
-                template.convertAndSend(PhilzProductApplication.queueName, jsonProduct);
+                template.convertAndSend(PhilzProductApplication.queueName, productid);
                 return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
             }        
     
