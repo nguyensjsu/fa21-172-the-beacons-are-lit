@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -65,15 +66,17 @@ public class PhilzCartController {
 
       /**
      * Returns details about a single product
-     * @param productID the product id from 0-21
+     * @param productid the product id from 0-21
      * @return Response Entity with product as a json string and http status
      */
     @GetMapping(value="/products/{productid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<String> getProduct(@PathVariable String productID){
-        System.out.println("getProduct: " + productID); 
-        JSONObject jsonObject = new JSONObject(); 
+    ResponseEntity<String> getProduct(@PathVariable String productid, Model model){
+        System.out.println("getProduct: " + productid);
+        JSONObject jsonObject = new JSONObject();
         try{
-            jsonObject.put("product",  this.productsList.get(Integer.parseInt(productID))); 
+            jsonObject.put("product",  this.productsList.get(Integer.parseInt(productid)));
+
+            //return "payments";
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
         }catch(JSONException e){
             try {

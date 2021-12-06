@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 interface PhilzProductRepository extends JpaRepository<PhilzProducts, Long> {
 
     PhilzProducts findByName(String coffee);
+
+    PhilzProducts findByProductID(String productid);
 } 

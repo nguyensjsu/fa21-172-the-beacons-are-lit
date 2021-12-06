@@ -1,93 +1,111 @@
 [
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "JACOBS",
-    "roast": "dark"
+    "productID": "1",
+    "name": "Jacob's Wonderbar",
+    "blendType": "dark"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "ARABIC",
-    "roast": "dark"
+    "productID": "2",
+    "name": "Aromatic Arabic",
+    "blendType": "dark"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "ECSTATIC",
-    "roast": "dark"
+    "productID": "3",
+    "name": "Ecstatic",
+    "blendType": "dark"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "ETHER",
-    "roast": "dark"
+    "productID": "4",
+    "name": "Ether",
+    "blendType": "dark"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "TURKISH",
-    "roast": "dark"
+    "productID": "5",
+    "name": "Tantalizing Turkish",
+    "blendType": "dark"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "GRATITUDE",
-    "roast": "medium"
+    "productID": "6",
+    "name": "Gratitude",
+    "blendType": "medium"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "TESORA",
-    "roast": "medium"
+    "productID": "7",
+    "name": "Tesora",
+    "blendType": "medium"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "ALARM",
-    "roast": "medium"
+    "productID": "8",
+    "name": "Greater Alarm",
+    "blendType": "medium"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "JULIES",
-    "roast": "medium"
+    "productID": "9",
+    "name": "Julie's Ultimate",
+    "blendType": "medium"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "PHILHARMONIC",
-    "roast": "medium"
+    "productID": "10",
+    "name": "Philharmonic",
+    "blendType": "medium"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "PHILTEREDSOUL",
-    "roast": "medium"
+    "productID": "11",
+    "name": "Philtered Soul",
+    "blendType": "medium"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "SILKEN",
-    "roast": "medium"
+    "productID": "12",
+    "name": "Silken Splendor",
+    "blendType": "medium"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "AMBROSIA",
-    "roast": "light"
+    "productID": "13",
+    "name": "Ambrosia Coffee of God",
+    "blendType": "light"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "DANCING",
-    "roast": "light"
+    "productID": "14",
+    "name": "Dancing Water",
+    "blendType": "light"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "MANHATTAN",
-    "roast": "light"
+    "productID": "15",
+    "name": "New Manhattan",
+    "blendType": "light"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "COLUMBIA",
-    "roast": "decaf"
+    "productID": "16",
+    "name": "Decaf Columbia Darker Roast",
+    "blendType": "decaf"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "ETHIOPIA",
-    "roast": "decaf"
+    "productID": "17",
+    "name": "Decaf Ethiopia Lighter Roast",
+    "blendType": "decaf"
   },
   {
     "_class": "com.example.philzcart.PhilzProducts",
-    "name": "HOUSE",
-    "roast": "decaf"
+    "productID": "18",
+    "name": "Decaf House Medium Blend",
+    "blendType": "decaf"
   }
 
 ]

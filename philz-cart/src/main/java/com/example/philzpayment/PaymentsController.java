@@ -142,7 +142,7 @@ public class PaymentsController {
     @GetMapping("api/payment/{username}")
     public String getAction( PaymentsCommand command, Model model) {
 
-        return "payment" ;
+        return "payments" ;
 
     }
 

@@ -12,10 +12,10 @@ import javax.persistence.*;
 public class PhilzProducts {
 	
 	private @Id @GeneratedValue Long id;
-	private int productID; 
+	private String productID;
 	private String blendType;
 	private String name;
-	private String roast;
+//	private String roast;
 	final double price = 18.50;
 
 }
