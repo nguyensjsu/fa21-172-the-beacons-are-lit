@@ -27,12 +27,12 @@ public class ProductMessageListener {
      * @param message
      */
     public void receiveMessage(String message) {
-        log.info("Received Order:" + message + ">");
-        Long id = Long.valueOf(message);
-        PhilzProducts product = productRepository.findById(id).orElse(null);
+        log.info("Received <" + message + ">");
+        //Long id = Long.valueOf(message.get("id"));
+        //PhilzProducts product = productRepository.findById(id).orElse(null);
       
 
-        productRepository.save(product);
+        //productRepository.save(product);
         log.info("Message processed...");
     }
 }
