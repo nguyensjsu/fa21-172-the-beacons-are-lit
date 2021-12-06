@@ -91,32 +91,35 @@ public class UserResourceImpl {
 	 * @param securityQuestionAnswer the security question to answer. Technically this is a second password so maybe insecure. TOO BAD
 	 * @return JSON response object. 
 	 */
-	@PostMapping(value = "/reset", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> reset(@RequestParam String email ,@RequestParam String newPassword, @RequestParam String securityQuestionAnswer) {
-		JSONObject jsonObject = new JSONObject(); 
-		try{
-			
-			User user = this.userRepository.findByEmail(email); 
 
-			if(user == null){
-				throw new JSONException("User does not exist!"); 
-			} 
-
-			if(securityQuestionAnswer.toUpperCase().equals(user.getSecurityQuestionAnswer().toUpperCase())){
-				user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
-				this.userRepository.save(user); 
-				jsonObject.put("message", "set new password for: " + user.getEmail() + " Successfully");
-				return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
-			}else{
-				throw new JSONException("Invalid answer"); 
+	//public ResponseEntity<String> reset(@RequestParam String email ,@RequestParam String newPassword, @RequestParam String securityQuestionAnswer) {
+		@PostMapping(value = "/reset", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> reset(@RequestBody NewUser newUser) {
+	
+				JSONObject jsonObject = new JSONObject();
+			try{
+				
+				User user = this.userRepository.findByEmail(newUser.getEmail());
+	
+				if(user == null){
+					throw new JSONException("User does not exist!"); 
+				} 
+	
+				if(newUser.getSecurityQuestionAnswer2().toUpperCase().equals(user.getSecurityQuestionAnswer().toUpperCase())){
+					user.setPassword(new BCryptPasswordEncoder().encode(newUser.getNewPassword()));
+					this.userRepository.save(user); 
+					jsonObject.put("message", "set new password for: " + user.getEmail() + " Successfully");
+					return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
+				}else{
+					throw new JSONException("Invalid answer"); 
+				}
+			}catch(JSONException e){
+				try {
+					jsonObject.put("exception", e.getMessage());
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				}
+				return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
 			}
-		}catch(JSONException e){
-			try {
-				jsonObject.put("exception", e.getMessage());
-			} catch (JSONException e1) {
-				e1.printStackTrace();
-			}
-			return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
 		}
-	}
 }
