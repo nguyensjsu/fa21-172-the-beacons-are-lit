@@ -4,9 +4,9 @@ metadata:
   name: philz-customer-service 
   namespace: default
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
-  - port: 80
+  - port: 8080
     targetPort: 8080 
   selector:
     name: philz-customer
