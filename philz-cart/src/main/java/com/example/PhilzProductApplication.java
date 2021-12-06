@@ -21,6 +21,7 @@ public class PhilzProductApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PhilzProductApplication.class, args);
+		//SpringApplication.run(PhilzPaymentApplication.class, args);
 	}
 
 	@Bean
