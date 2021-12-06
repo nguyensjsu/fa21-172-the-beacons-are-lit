@@ -151,19 +151,12 @@ public class PaymentsController {
         this.repository = repository;
     }
 
-    @PostMapping(value = "api/payment/{productid}",  produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> makePayment(@PathVariable String productid, @RequestBody PaymentsInfo paymentsInfo,    
+    @PostMapping(value = "api/payment",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> makePayment(@RequestBody PaymentsInfo paymentsInfo,
                             Errors errors, HttpServletRequest request) {
-        
-        // Optional<PhilzProducts> product = repository.findById(productid);
-        // PhilzProducts products = product.get();
-
-        JSONObject jsonProduct = new JSONObject();
             
         JSONObject jsonObject = new JSONObject();
         try{
-
-            // jsonProduct.put("product", products);
 
             CyberSourceAPI.setHost( apiHost );
             CyberSourceAPI.setKey( merchantKeyId );
@@ -257,7 +250,8 @@ public class PaymentsController {
     
             if (authValid && captureValid){
                 jsonObject.put("message","Successful Payment! for " + paymentsInfo.email());
-                template.convertAndSend(PhilzProductApplication.queueName, productid);
+                String message = "Order number: " + order_num;
+                template.convertAndSend(PhilzProductApplication.queueName, message);
                 return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
             }        
     
