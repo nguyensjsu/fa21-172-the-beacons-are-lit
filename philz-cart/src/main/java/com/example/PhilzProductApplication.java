@@ -1,22 +1,17 @@
 package com.example;
 
-import com.example.rabbitmq.Receiver;
+import com.example.rabbitmq.ProductMessageListener;
+import com.example.rabbitmq.RabbitAmqpTutorialsRunner;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFactoryBean;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -35,7 +30,7 @@ public class PhilzProductApplication {
 
 	static final String topicExchangeName = "spring-boot-exchange";
 
-	static final String queueName = "spring-boot";
+	public static final String queueName = "spring-boot";
   
 	@Bean
 	Queue queue() {
@@ -63,9 +58,24 @@ public class PhilzProductApplication {
 	}
   
 	@Bean
-	MessageListenerAdapter listenerAdapter(Receiver receiver) {
+	MessageListenerAdapter listenerAdapter(ProductMessageListener receiver) {
 	  return new MessageListenerAdapter(receiver, "receiveMessage");
 	}
+
+	@Profile("usage_message")
+    @Bean
+    public CommandLineRunner usage() {
+        return args -> {
+            System.out.println("This app uses Spring Profiles to control its behavior.\n");
+                    System.out.println("Sample usage: java -jar spring-rabbitmq-helloworld-1.0.jar --spring.profiles.active=hello-world,sender");
+        };
+    }
+
+    @Profile("!usage_message")
+    @Bean
+    public CommandLineRunner tutorial() {
+        return new RabbitAmqpTutorialsRunner();
+    }
 
 	@Bean
 	public Jackson2RepositoryPopulatorFactoryBean getRespositoryPopulator() {

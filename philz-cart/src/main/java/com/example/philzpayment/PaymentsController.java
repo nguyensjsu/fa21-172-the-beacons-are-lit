@@ -9,6 +9,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import org.hibernate.annotations.SourceType;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +26,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import com.example.PhilzProductApplication;
 import com.example.cybersource.*;
+import com.example.philzproduct.PhilzProductRepository;
+import com.example.philzproduct.PhilzProducts;
+import com.example.rabbitmq.*;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
 
 @Controller
 public class PaymentsController {  
@@ -42,6 +48,11 @@ public class PaymentsController {
     @Value("${cybersource.merchantkeyid}") private String merchantKeyId ;
     @Value("${cybersource.merchantsecretkey}") private String merchantsecretKey ;
     @Value("${cybersource.merchantid}") private String merchantId ;
+
+    @Autowired
+    private RabbitTemplate template;
+
+    private PhilzProductRepository repository;
 
     private CyberSourceAPI api = new CyberSourceAPI();
 
@@ -134,13 +145,24 @@ public class PaymentsController {
 
     }
 
+    public PaymentsController(RabbitTemplate rabbitTemplate, PhilzProductRepository repository) {
+        this.template = rabbitTemplate;
+        this.repository = repository;
+    }
 
-    @PostMapping(value = "api/payment",  produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> makePayment(@RequestBody PaymentsInfo paymentsInfo,    
+    @PostMapping(value = "api/payment/{productid}",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> makePayment(@PathVariable String productid, @RequestBody PaymentsInfo paymentsInfo,    
                             Errors errors, HttpServletRequest request) {
         
+        PhilzProducts products = repository.findByProductID(productid);
+
+        JSONObject jsonProduct = new JSONObject();
+            
         JSONObject jsonObject = new JSONObject();
         try{
+
+            jsonProduct.put("product", products);
+
             CyberSourceAPI.setHost( apiHost );
             CyberSourceAPI.setKey( merchantKeyId );
             CyberSourceAPI.setSecret(merchantsecretKey);
@@ -233,9 +255,11 @@ public class PaymentsController {
     
             if (authValid && captureValid){
                 jsonObject.put("message","Successful Payment! for " + paymentsInfo.email());
+                template.convertAndSend(PhilzProductApplication.queueName, jsonProduct);
                 return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
             }        
     
+
          
     
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.BAD_REQUEST);
