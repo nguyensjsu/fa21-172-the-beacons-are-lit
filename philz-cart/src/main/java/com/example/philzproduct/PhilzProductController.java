@@ -70,7 +70,7 @@ public class PhilzProductController {
         System.out.println("getProduct: " + productid);
         JSONObject jsonObject = new JSONObject();
         try{
-            jsonObject.put("product",  this.productsList.get(Integer.parseInt(productid)));
+            jsonObject.put("product",  productRepository.findByProductID(productid));
 
             //return "payments";
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
