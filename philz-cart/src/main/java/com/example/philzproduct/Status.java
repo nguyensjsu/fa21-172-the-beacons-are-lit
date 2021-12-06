@@ -1,4 +1,4 @@
-package com.example.philzcart;
+package com.example.philzproduct;
 
 public enum Status {
 

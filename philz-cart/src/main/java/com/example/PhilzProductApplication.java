@@ -17,10 +17,10 @@ import java.io.InputStream;
 import java.util.List;
 
 @SpringBootApplication
-public class PhilzCartApplication {
+public class PhilzProductApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PhilzCartApplication.class, args);
+		SpringApplication.run(PhilzProductApplication.class, args);
 	}
 
 	@Bean

@@ -1,4 +1,4 @@
-package com.example.philzcart;
+package com.example.philzproduct;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.example.philzcart;
+package com.example.philzproduct;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ import lombok.Setter;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(path = "rest")
-public class PhilzCartController {
+public class PhilzProductController {
 
     @Autowired
     private final PhilzProductRepository productRepository;
@@ -37,9 +37,8 @@ public class PhilzCartController {
      * @param productRepository
      * @param repository
      */
-    PhilzCartController(PhilzProductRepository productRepository, PhilzCartRepository repository) {
+    PhilzProductController(PhilzProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.repository = repository;
     }
 
 
@@ -92,7 +91,6 @@ public class PhilzCartController {
      */
     @DeleteMapping("api/cart/{username}/delete")
     Message deleteAll() {
-        this.repository.deleteAllInBatch();
         this.orders.clear();
         Message msg = new Message();
         msg.setStatus("All Orders Deleted!");

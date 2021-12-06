@@ -1,4 +1,4 @@
-package com.example.philzcart;
+package com.example.philzproduct;
 import com.example.testing.User;
 import com.example.testing.UserRepository;
 

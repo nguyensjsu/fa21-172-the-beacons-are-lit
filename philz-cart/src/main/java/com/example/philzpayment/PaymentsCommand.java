@@ -8,11 +8,13 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
 @Table(name="Payments")
 @Data
+@Setter
 @RequiredArgsConstructor
 class PaymentsCommand {
 

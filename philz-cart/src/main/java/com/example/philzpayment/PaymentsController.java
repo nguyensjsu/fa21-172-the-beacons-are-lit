@@ -23,14 +23,10 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import com.example.cybersource.*;
-import com.example.philzcart.PhilzCart;
-import com.example.philzcart.Status;
-import com.example.philzcart.PhilzCartRepository;
 
 import org.springframework.beans.factory.annotation.Value;
 
 
-@Slf4j
 @Controller
 public class PaymentsController {  
 
@@ -135,11 +131,9 @@ public class PaymentsController {
     @Autowired
     private PaymentsCommandRepository repository;
 
-    @Autowired
-    private PhilzCartRepository cartRepository;
 
 
-    @GetMapping("api/payment/{username}")
+    @GetMapping("api/payment")
     public String getAction( PaymentsCommand command, Model model) {
 
         return "payments" ;
@@ -148,11 +142,8 @@ public class PaymentsController {
 
     @PostMapping("api/payment/{username}")
     public String postAction(@PathVariable String username, @Validated PaymentsCommand command,   
-                            @RequestParam(value="action", required=true) String action,
                             Errors errors, Model model, HttpServletRequest request) {
     
-        log.info( "Action: " + action ) ;
-        log.info( "Command: " + command ) ;
 
         CyberSourceAPI.setHost( apiHost );
         CyberSourceAPI.setKey( merchantKeyId );
@@ -192,12 +183,11 @@ public class PaymentsController {
             return "payment";
         }
 
-        PhilzCart cart = cartRepository.findByUsername(username);
         int min = 1239871;
         int max = 9999999;
         int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
         String order_num = String.valueOf(random_int);
-        String total = String.valueOf(cart.getTotal());
+        String total =("18.50");
         AuthRequest auth = new AuthRequest() ;
 		auth.reference = order_num;
 		auth.billToFirstName = command.firstname() ;
@@ -262,9 +252,6 @@ public class PaymentsController {
 
         }        
 
-        
-        cart.setStatus(Status.COMPLETED);
-        cartRepository.save(cart);
         repository.save(command);
      
 
