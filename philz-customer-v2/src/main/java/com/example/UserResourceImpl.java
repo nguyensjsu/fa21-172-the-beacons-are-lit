@@ -92,11 +92,13 @@ public class UserResourceImpl {
 	 * @return JSON response object. 
 	 */
 	@PostMapping(value = "/reset", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> reset(@RequestBody User user, @RequestParam String newPassword, @RequestParam String securityQuestionAnswer) {
+	public ResponseEntity<String> reset(@RequestParam String email ,@RequestParam String newPassword, @RequestParam String securityQuestionAnswer) {
 		JSONObject jsonObject = new JSONObject(); 
 		try{
-		
-			if(this.userRepository.findByEmail(user.getEmail()) == null){
+			
+			User user = this.userRepository.findByEmail(email); 
+
+			if(user == null){
 				throw new JSONException("User does not exist!"); 
 			} 
 
