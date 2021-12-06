@@ -135,8 +135,8 @@ public class PaymentsController {
     }
 
 
-    @PostMapping(value = "api/payment/{email}",  produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> makePayment(@PathVariable String email, @RequestBody PaymentsInfo paymentsInfo,    
+    @PostMapping(value = "api/payment",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> makePayment(@RequestBody PaymentsInfo paymentsInfo,    
                             Errors errors, HttpServletRequest request) {
         
         JSONObject jsonObject = new JSONObject();
@@ -232,7 +232,7 @@ public class PaymentsController {
             }
     
             if (authValid && captureValid){
-                jsonObject.put("message","Successful Payment! for " + email);
+                jsonObject.put("message","Successful Payment! for " + paymentsInfo.email());
                 return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
             }        
     
