@@ -15,26 +15,23 @@ _format_version: "1.1"
 #Routes through /api (routes:)
 #use api key authentication
 services:
-- name: philz
-  protocol: http
-  host: philz-customer
-  port: 8080
-  path: /
-  plugins:
-  - name: key-auth  
-  routes:
-  - name: api
-    paths:
-    - /api
-    
-#For api key auth plugin 
+  - name: philz
+    protocol: http
+    host: philz-customer
+    port: 8080
+    path: /
+    plugins:
+      - name: key-auth
+    routes:
+      - name: api
+        paths:
+          - /api
+
+#For api key auth plugin
 consumers:
-- username: apiclient
-  keyauth_credentials:
-  - key: 2H3fONTa8ugl1IcVS7CjLPnPIS2Hp9dJ
-
-
-
+  - username: apiclient
+    keyauth_credentials:
+      - key: 2H3fONTa8ugl1IcVS7CjLPnPIS2Hp9dJ
 # Each Kong entity (core entity or custom entity introduced by a plugin)
 # can be listed in the top-level as an array of objects:
 

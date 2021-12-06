@@ -8,7 +8,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /rest
+      - path: /api
         backend:
           serviceName: philz-cart
-          servicePort: 81
+          servicePort: 80
