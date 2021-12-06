@@ -37,7 +37,8 @@ const Welcome = (props) => {
                   </div>
                   <div className="media-content">
                   <b style={{ textTransform: "capitalize" }}>Coffee Name: {p.name}</b>
-                  <div>Blend: {p.roast}</div>
+                  <div>Blend: {p.blendType}</div>
+                  <div>Price: {p.price}</div>
                   <p>
                    <button hidden>Add to Cart</button>
                   </p>
