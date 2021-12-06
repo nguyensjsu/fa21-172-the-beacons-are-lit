@@ -9,4 +9,5 @@ public interface PhilzProductRepository extends JpaRepository<PhilzProducts, Lon
     PhilzProducts findByName(String coffee);
 
     PhilzProducts findByProductID(String productid);
+
 } 

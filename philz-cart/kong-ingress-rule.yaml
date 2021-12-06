@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: philz-api
+  name: philz-cart
   annotations:
     kubernetes.io/ingress.class: kong
 spec:
@@ -10,5 +10,5 @@ spec:
       paths:
       - path: /rest
         backend:
-          serviceName: philz-api-service
-          servicePort: 80
+          serviceName: philz-cart
+          servicePort: 81

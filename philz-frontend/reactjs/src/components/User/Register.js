@@ -30,6 +30,7 @@ const Register = (props) => {
     email: "",
     password: "",
     mobile: "",
+    securityQuestionAnswer: "", 
   };
 
   const [user, setUser] = useState(initialState);

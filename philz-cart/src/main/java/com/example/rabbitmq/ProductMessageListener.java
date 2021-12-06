@@ -26,9 +26,9 @@ public class ProductMessageListener {
      * This method is invoked whenever any new message is put in the queue.
      * @param message
      */
-    public void receiveMessage(Map<String, String> message) {
+    public void receiveMessage(String message) {
         log.info("Received <" + message + ">");
-        Long id = Long.valueOf(message.get("id"));
+        Long id = Long.valueOf(message);
         PhilzProducts product = productRepository.findById(id).orElse(null);
       
 
