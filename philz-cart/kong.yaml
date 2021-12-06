@@ -14,8 +14,8 @@ _format_version: "1.1"
 services:
 - name: philz
   protocol: http
-  host: philz-api
-  port: 8080
+  host: philz-cart
+  port: 8081
   path: /
   plugins:
   - name: key-auth  

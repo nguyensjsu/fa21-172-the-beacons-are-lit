@@ -2,6 +2,8 @@ package com.example.philzproduct;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,7 +11,7 @@ import javax.persistence.*;
 @Table(name="PhilzProducts" )
 @Data
 @RequiredArgsConstructor
-public class PhilzProducts {
+public class PhilzProducts implements Serializable {
 	
 	private @Id @GeneratedValue Long id;
 	private String productID;
