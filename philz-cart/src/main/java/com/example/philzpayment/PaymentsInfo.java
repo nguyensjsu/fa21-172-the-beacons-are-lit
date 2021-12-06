@@ -28,15 +28,6 @@ class PaymentsInfo {
     private String cardcvv;
     private String email;
 
-    //Cybersource
-    private String orderNumber; //randomly generated
-    private String transactionAmount;
-    private String transactionCurrency;
-    private String authID;
-    private String authStatus;
-    private String captureID;
-    private String captureStatus;
-
     //Getters
     public String firstname() {return firstname;} 
     public String lastname() {return lastname;}
