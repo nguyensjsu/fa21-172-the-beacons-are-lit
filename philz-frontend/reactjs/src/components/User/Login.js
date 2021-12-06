@@ -126,15 +126,15 @@ const Login = (props) => {
             >
               <FontAwesomeIcon icon={faSignInAlt} /> Login
             </Button>{" "}
-            <Button
-              size="sm"
-              type="button"
-              variant="info"
-              onClick={resetLoginForm}
-              disabled={user.email.length === 0 && user.password.length === 0}
-            >
-              <FontAwesomeIcon icon={faUndo} /> Reset
-            </Button>
+            {/*<Button*/}
+            {/*  size="sm"*/}
+            {/*  type="button"*/}
+            {/*  variant="info"*/}
+            {/*  onClick={resetLoginForm}*/}
+            {/*  disabled={user.email.length === 0 && user.password.length === 0}*/}
+            {/*>*/}
+            {/*  <FontAwesomeIcon icon={faUndo} /> Reset*/}
+            {/*</Button>*/}
           </Card.Footer>
         </Card>
       </Col>

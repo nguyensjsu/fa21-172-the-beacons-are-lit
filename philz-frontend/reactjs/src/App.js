@@ -8,7 +8,7 @@ import NavigationBar from "./components/NavigationBar";
 import Welcome from "./components/Welcome";
 import Product from "./components/Product/Product";
 import ProductList from "./components/Product/ProductList";
-//import UserList from "./components/User/UserList";
+import Reset from "./components/User/Reset";
 import Register from "./components/User/Register";
 import Login from "./components/User/Login";
 import Footer from "./components/Footer";
@@ -37,6 +37,7 @@ const App = () => {
               <Route path="/login" exact component={Login} />
               <Route path="/list" exact component={ProductList} />
               <Route path="/add" exact component={Product} />
+              <Route path="/reset" exact component={Reset} />
               <Route
                 path="/logout"
                 exact
