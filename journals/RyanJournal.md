@@ -72,7 +72,7 @@ I then implement the PaymentController by taking in the payments command which h
 After some issues with trying to get the cart price we decided on merging the philz-payment into the philz-cart folder. This would make it easier to grab the price and update the cart status while making it easier for ngan to connect from front end.
 https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/137e2fd60f1b5258494da462d590bf10df292f93
 
-We then ran into some issues with the cart and decided to change that idea to just buying a single product. 
+We then ran into some issues with the cart and decided to change that idea to just buying a single product. With the help of Hieu this became our final paymentsController that we would use.
 
 ```
 @PostMapping(value = "api/payment/{email}",  produces = MediaType.APPLICATION_JSON_VALUE)
