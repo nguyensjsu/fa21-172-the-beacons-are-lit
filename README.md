@@ -204,7 +204,8 @@
 
 ### December 5, 2021
 
-- There were issues with PhilzCart working on the frontend so PhilzCart was merged with PhilzPayment so that we could consoladate the number of POST requests we needed. 
+- There were issues with PhilzCart working on the frontend so PhilzCart was merged with PhilzPayment so that we could consoladate the number of POST requests we needed.
+- There were also issues sending cart information to PhilzPayment so merging the two made it easier to implement. 
 - Decided to remove cart functionality entirely to make it simpler for the front end. Now only product browsing capability and a separate payments page
 - Attempted to start consolidating for service simplification. Initial work done by Hieu but decided to leave to mary to modify previous work instead of starting from scratch. 
 - https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/e153ec78c04a389ea1af6453388d6e919ea9f702
