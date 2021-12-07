@@ -222,7 +222,7 @@ https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/137e2fd60f1b52
 
 ![image](https://user-images.githubusercontent.com/56413249/144987517-0ad9fddd-f7aa-4086-848c-ac4c685fcf42.png)
 
-## RABIITMQ IMPLEMENTATION ##
+## RABBITMQ IMPLEMENTATION ##
 * After that was done Mary and I collaborated on getting rabbitmq to work locally. The first attempt consisted of attempting to send a JsonObject of our product through the queue for our ProductMessageListener to work.
 https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/5bb1a306bb5905199b4221fed5c9f366f59c8041
 ```
