@@ -223,4 +223,4 @@
 
 # Architecture
 
-![](https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit)
+![](https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/blob/main/diagram.png)
