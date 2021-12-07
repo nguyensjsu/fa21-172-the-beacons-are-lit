@@ -184,4 +184,4 @@ https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/8c8a2d8cc1aa5b
 ![image](https://user-images.githubusercontent.com/56413249/144986588-e62ffa44-5979-4253-a1e6-8e768f3d2b2f.png)
 
 
-Once that was done I tried to get MySQL instance running on GKE with our philzCustomer database. I had everything up and running but for some reason ingress would say "All backened states are unhealthy". This causes issues trying to create users and put them into the database and ultimely we could not get it to work.
+Once that was done I tried to get MySQL instance running on GKE with our philzCustomer database. I had everything up and running but for some reason ingress would say "All backened states are unhealthy". This causes issues trying to create users and put them into the database and ultimately we could not get it to work.
