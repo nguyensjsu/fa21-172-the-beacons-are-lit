@@ -162,7 +162,7 @@ const Register = (props) => {
                   <InputGroup>
                     <InputGroup.Prepend>
                       <InputGroup.Text>
-                        <FontAwesomeIcon icon={faPhone} />
+                        <FontAwesomeIcon icon={faUser} />
                       </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
@@ -172,7 +172,7 @@ const Register = (props) => {
                         value={user.securityQuestionAnswer}
                         onChange={userChange}
                         className={"bg-dark text-white"}
-                        placeholder="Enter Security QA"
+                        placeholder="Enter Security Answer"
                     />
                   </InputGroup>
                 </Form.Group>
@@ -188,14 +188,14 @@ const Register = (props) => {
               >
                 <FontAwesomeIcon icon={faUserPlus} /> Register
               </Button>{" "}
-              <Button
-                size="sm"
-                type="button"
-                variant="info"
-                onClick={resetRegisterForm}
-              >
-                <FontAwesomeIcon icon={faUndo} /> Reset
-              </Button>
+              {/*<Button*/}
+              {/*  size="sm"*/}
+              {/*  type="button"*/}
+              {/*  variant="info"*/}
+              {/*  onClick={resetRegisterForm}*/}
+              {/*>*/}
+              {/*  <FontAwesomeIcon icon={faUndo} /> Reset*/}
+              {/*</Button>*/}
             </Card.Footer>
           </Card>
         </Col>

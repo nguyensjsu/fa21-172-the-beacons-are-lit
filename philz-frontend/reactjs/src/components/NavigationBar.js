@@ -29,6 +29,9 @@ const NavigationBar = () => {
         <Link to={"login"} className="nav-link">
           <FontAwesomeIcon icon={faSignInAlt} /> Login
         </Link>
+          <Link to={"reset"} className="nav-link">
+              <FontAwesomeIcon icon={faSignInAlt} /> Reset Password
+          </Link>
       </Nav>
     </>
   );
@@ -38,9 +41,9 @@ const NavigationBar = () => {
         <Link to={"add"} className="nav-link">
           Purchase
         </Link>
-        <Link to={"list"} className="nav-link">
-          Cart List (Not implemenet)
-        </Link>
+        {/*<Link to={"list"} className="nav-link">*/}
+        {/*  Cart List (Not implemenet)*/}
+        {/*</Link>*/}
         
       </Nav>
       <Nav className="navbar-right">

@@ -1,0 +1,9 @@
+apiVersion: "extensions/v1beta1"
+kind: "Ingress"
+metadata:
+  name: "philz-customer-ingress"
+  namespace: "default"
+spec:
+  backend:
+    serviceName: "philz-customer-service"
+    servicePort: 8080

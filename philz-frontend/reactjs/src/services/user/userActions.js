@@ -31,6 +31,18 @@ export const registerUser = (userObject) => async (dispatch) => {
   }
 };
 
+export const resetUser = (userObject) => async (dispatch) => {
+  dispatch(userRequest());
+  try {
+    const response = await axios.post("http://localhost:8080/api/user/reset", userObject);
+    dispatch(userSavedSuccess(response.data));
+    return Promise.resolve(response.data);
+  } catch (error) {
+    dispatch(userFailure(error.message));
+    return Promise.reject(error);
+  }
+};
+
 const userRequest = () => {
   return {
     type: UT.USER_REQUEST,
