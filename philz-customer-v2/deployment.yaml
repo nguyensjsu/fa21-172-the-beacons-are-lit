@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       name: philz-customer
-  replicas: 1 # tells deployment to run 2 pods matching the template
+  replicas: 2 # tells deployment to run 2 pods matching the template
   template: # create pods using pod definition in this template
     metadata:
       # unlike pod.yaml, the name is not included in the meta data as a unique name is
@@ -17,7 +17,9 @@ spec:
     spec:
       containers:
       - name: philz-customer
-        image: hieuvosjsu/philz-customer:v2.0 
+        image: hieuvosjsu/philz-customer
+        env:
+        - name: MYSQL_HOST
+          value: "10.79.192.3"   
         ports:
         - containerPort: 8080
-
