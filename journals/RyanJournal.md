@@ -21,7 +21,7 @@ I then implement the PaymentController by taking in the payments command which h
                             @RequestParam(value="action", required=true) String action,
                             Errors errors, Model model, HttpServletRequest request) {
 
-	@@ -186,11 +183,14 @@ public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
+	public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
         if(hasErrors){
             msgs.print();
             model.addAttribute("messages", msgs.getMessages());
@@ -36,7 +36,7 @@ I then implement the PaymentController by taking in the payments command which h
         AuthRequest auth = new AuthRequest() ;
 		auth.reference = order_num;
 		auth.billToFirstName = command.firstname() ;
-	@@ -211,7 +211,7 @@ public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
+	public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
         if (auth.cardType.equals("Error")){
             System.out.println("Unsupported Credit Card Type.");
             model.addAttribute("message", "Unsupported Credit Card Type.");
@@ -44,7 +44,7 @@ I then implement the PaymentController by taking in the payments command which h
         }
 		boolean authValid = true ;
 		AuthResponse authResponse = new AuthResponse() ;
-	@@ -222,7 +222,7 @@ public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
+	public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
             authValid = false ;
             System.out.println(authResponse.message);
             model.addAttribute("message", authResponse.message);
@@ -52,7 +52,7 @@ I then implement the PaymentController by taking in the payments command which h
 		}
 
         boolean captureValid = true ;
-	@@ -240,7 +240,7 @@ public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
+	public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
                 captureValid = false;
                 System.out.println(captureResponse.message);
                 model.addAttribute("message", captureResponse.message);
@@ -60,7 +60,7 @@ I then implement the PaymentController by taking in the payments command which h
             }
         }
 
-	@@ -258,7 +258,7 @@ public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
+	public String postAction(@Validated /*@ModelAttribute("command")*/ PaymentsComma
         repository.save(command);
 
 
