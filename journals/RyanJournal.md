@@ -1,13 +1,16 @@
-*I was assigned to work on our payments API and integrating it with cybersource. I imported the code from lab7 spring payments and updated it according to what was necessary for our project.
+# Ryans Journal #
 
-I first started by creating a team cybersource account then generating a key to be used for our API.
+## Payments API & Cybersource ##
+* I was assigned to work on our payments API and integrating it with cybersource. I imported the code from lab7 spring payments and updated it according to what was necessary for our project.
+
+* I first started by creating a team cybersource account then generating a key to be used for our API.
 ```
 cybersource.merchantkeyid=5bd25a12-0866-41b3-8032-d0f2cbdee79e
 cybersource.merchantsecretkey=k6mXIYoPxYuu4m9WHZT+dfWlGzP0oWfk+2f3V/lVADs=
 cybersource.merchantid=thebeaconsarelit
 cybersource.apihost=apitest.cybersource.com
 ```
-I then implement the PaymentController by taking in the payments command which held all the billing information and the cart information since I needed the price.
+* I then implement the PaymentController by taking in the payments command which held all the billing information and the cart information since I needed the price.
 ```
  @GetMapping("api/payment/{userid}")
     public String getAction( PaymentsCommand command, PhilzCart cart, Model model) {
@@ -69,10 +72,10 @@ I then implement the PaymentController by taking in the payments command which h
 
 }
 ```
-After some issues with trying to get the cart price we decided on merging the philz-payment into the philz-cart folder. This would make it easier to grab the price and update the cart status while making it easier for ngan to connect from front end.
+* After some issues with trying to get the cart price we decided on merging the philz-payment into the philz-cart folder. This would make it easier to grab the price and update the cart status while making it easier for ngan to connect from front end.
 https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/137e2fd60f1b5258494da462d590bf10df292f93
 
-We then ran into some issues with the cart and decided to change that idea to just buying a single product. With the help of Hieu this became our final paymentsController that we would use.
+* We then ran into some issues with the cart and decided to change that idea to just buying a single product. With the help of Hieu this became our final paymentsController that we would use.
 
 ```
 @PostMapping(value = "api/payment/{email}",  produces = MediaType.APPLICATION_JSON_VALUE)
@@ -191,8 +194,8 @@ We then ran into some issues with the cart and decided to change that idea to ju
 
 }
 ```
-
-Once the Payments API was finished I ran tests in postman locally using this data to confirm that it works.
+## API TESTING ##
+* Once the Payments API was finished I ran tests in postman locally using this data to confirm that it works.
 
 ```
 {
@@ -211,15 +214,16 @@ Once the Payments API was finished I ran tests in postman locally using this dat
     }
 ```
 
-It did work successfully and the transactions can be seen in cybersource.
+* It did work successfully and the transactions can be seen in cybersource.
 
 ![image](https://user-images.githubusercontent.com/56413249/144986437-5cd854a8-ede3-4f1b-bf05-0ee215b9c770.png)
 
-It would also be able to reject invalid data like having an invalid cardexpyear.
+* It would also be able to reject invalid data like having an invalid cardexpyear.
 
 ![image](https://user-images.githubusercontent.com/56413249/144987517-0ad9fddd-f7aa-4086-848c-ac4c685fcf42.png)
 
-After that was done Mary and I collaborated on getting rabbitmq to work locally. The first attempt consisted of attempting to send a JsonObject of our product through the queue for our ProductMessageListener to work.
+## RABIITMQ IMPLEMENTATION ##
+* After that was done Mary and I collaborated on getting rabbitmq to work locally. The first attempt consisted of attempting to send a JsonObject of our product through the queue for our ProductMessageListener to work.
 https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/5bb1a306bb5905199b4221fed5c9f366f59c8041
 ```
 public class ProductMessageListener {
@@ -371,20 +375,21 @@ public class PhilzProductApplication {
 
 }
 ```
-We ran into issues with sending a jsonObject so we changed it to just send the order number instead. That also didnt work at first and we realized the mistake was in PhilzProductApplication.java. We were using a dummy routing key instead of the name of our queue.
+* We ran into issues with sending a jsonObject so we changed it to just send the order number instead. That also didnt work at first and we realized the mistake was in PhilzProductApplication.java. We were using a dummy routing key instead of the name of our queue.
 
 ```
 return BindingBuilder.bind(queue).to(exchange).with("foobar");
 ```
-Needed to be changed to
+* Needed to be changed to
 
 ```
 return BindingBuilder.bind(queue).to(exchange).with(queueName);
 ```
-This became our final version of rabbitmq and it worked locally. When a payment was successfully made it would send that order number in the queue for the ProductMessageListener to recieve the order.
+* This became our final version of rabbitmq and it worked locally. When a payment was successfully made it would send that order number in the queue for the ProductMessageListener to recieve the order.
 https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/8c8a2d8cc1aa5bbe3743fe8803b1d823ee250dea
 
 ![image](https://user-images.githubusercontent.com/56413249/144986588-e62ffa44-5979-4253-a1e6-8e768f3d2b2f.png)
 
+## MYSQL GKE ##
 
-Once that was done I tried to get MySQL instance running on GKE with our philzCustomer database. I had everything up and running but for some reason ingress would say "All backened states are unhealthy". This causes issues trying to create users and put them into the database and ultimately we could not get it to work.
+* Once that was done I tried to get MySQL instance running on GKE with our philzCustomer database. I had everything up and running but for some reason ingress would say "All backened states are unhealthy". This causes issues trying to create users and put them into the database and ultimately we could not get it to work.
