@@ -106,7 +106,7 @@
 
 ### December 6th, 2021
 
-- Finalized testing of APIs and deployed philz-cart to GKE
+- Finalized testing of APIs and deployed philz-cart to GKE, setup Kong API, and ran tests in jumpbox 
 
   ![Screen Shot 2021-12-06 at 11.35.09 PM](images/Screen Shot 2021-12-06 at 11.35.09 PM.png)
 
