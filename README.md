@@ -15,15 +15,11 @@
 
 - We held our first official Team meeting and decided what the structure of our project would look like 
 
-##### Hieu
-
 - Commit 2c0c351:
   - https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/2c0c35165d7f0eb82ecc89d7e1a05cda583e792e:
   - We used Lab 5 as the base starter code for our project
 
 #### 11/22/2021
-
-##### Hieu
 
 - Added folders
 - Renamed Package to fit with our Philz theme
@@ -32,15 +28,12 @@
 #### 11/23/2021
 
 - We started divided up task and responsibilties into
-  1. Database - Hugh
+  1. Database - Hieu
   2. Cybersource - Ryan
   3. Security + Frontend - Ngan
   4. API's + RabbitMQ - Mary
-- [ Inset initial architecture here]
 
 #### 11/24/2021
-
-##### Ngan
 
 - The beginings of a frontend are starting to form
   - https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/b5b6b723868370626983329936d602ef4f6720d6
@@ -48,8 +41,6 @@
 ## Week of November 28th - December 4th
 
 #### 11/28/2021
-
-##### Mary
 
 - Started implementing APIs for ordering
   - https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/d15334204be8b5a4beab259127ea18ec8c4a4c5a
@@ -60,22 +51,16 @@
 
 #### 11/30/2021
 
-##### Ryan
-
 - CyberSource payments are implemented for Philz
   - https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/e3f529555ce976fe2d5f3add2ca1cf824bb0368f
 
 #### 12/1/2021
 
-##### Hieu
-
-- Refactored files
-  - https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/fbe164f090d5620fd761adaf9c38b277b59913f1
-
 #### 12/2/2021
 
-- We reconfigured our Architecture to have 3 microservices and a frontend
-
+- Relooked at project setup. Realized that setup was still monolithic. 
+- Led team to re-make architecture to have 3 microservices and a frontend
+- https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/8793e32de5247f19c783b9eaf37f6a33bb9b247f
   1. Philz Customers
   2. Philz Cart
   3. Philz Payment
@@ -164,7 +149,6 @@
 #### 12/3/2021
 
 - More edits to reconfigure the arrangement of files
-
 - PhilzCart and PhilzProducts are created
 
   ````java
@@ -209,26 +193,34 @@
   } 
   ```
 
-  
 
   - There is discussion about whether the Products should be hardcoded or stored in memory and both ways are implemented and tested to see which is easier to work with. The PhilzProducts are stored as an @Entiity in memory to make 
 
-- sdadas
-
-#### 12/4/2021
+#### December 4, 2021
 
 - Finished PhilzCart and Tested all the APIs with Postman
   - https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/26d4c4a8e30114047d56f217b9f1b814003fef06
-- 
+- Started to work on porting H2 in mem database to SQL and adding reset functionality | Work on deleted branch. 
 
 ### December 5, 2021
 
 - There were issues with PhilzCart working on the frontend so PhilzCart was merged with PhilzPayment so that we could consoladate the number of POST requests we needed. 
+- Decided to remove cart functionality entirely to make it simpler for the front end. Now only product browsing capability and a separate payments page
+- Attempted to start consolidating for service simplification. Initial work done by Hieu but decided to leave to mary to modify previous work instead of starting from scratch. 
+- https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/e153ec78c04a389ea1af6453388d6e919ea9f702
+- Finished reset
+- Modified Payments to work with REST api
+- Initial work with Kong. 
+- Started work on RabbitMQ
 
 ### December 6th, 2021
-
-
+- RabbitMQ works by morning, but only on local instance
+- Continued work to get Kong running. Only worked on one service locally & on GKE
+- Attempting to bring local SQL to use GKE instance. Failed with errors related to Ingress
+- Had to change reset to work with api
+- Deployed Cart service successfully however Rabbit failed to function. 
+- Presentation
 
 # Architecture
 
-n
+![](https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit)
