@@ -301,8 +301,87 @@ public class PaymentsController {
 
 }
 ```
+```
+@SpringBootApplication
+public class PhilzProductApplication {
 
-We ran into issues with sending a jsonObject so we changed it to just send the order number instead. This became our final version of rabbitmq and it worked locally. When a payment was successfully made it would send that order number in the queue for the ProductMessageListener to recieve the order.
+
+	static final String topicExchangeName = "spring-boot-exchange";
+
+	public static final String queueName = "spring-boot";
+  
+
+	@Bean
+	Queue queue() {
+	  return new Queue(queueName, false);
+	}
+  
+	@Bean
+	TopicExchange exchange() {
+	  return new TopicExchange(topicExchangeName);
+	}
+  
+	@Bean
+	Binding binding(Queue queue, TopicExchange exchange) {
+	  return BindingBuilder.bind(queue).to(exchange).with("foobar");
+	}
+  
+	@Bean
+	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
+		MessageListenerAdapter listenerAdapter) {
+	  SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+	  container.setConnectionFactory(connectionFactory);
+	  container.setQueueNames(queueName);
+	  container.setMessageListener(listenerAdapter);
+	  return container;
+	}
+  
+	@Bean
+	MessageListenerAdapter listenerAdapter(ProductMessageListener receiver) {
+	  return new MessageListenerAdapter(receiver, "receiveMessage");
+	}
+
+	@Profile("usage_message")
+    @Bean
+    public CommandLineRunner usage() {
+        return args -> {
+            System.out.println("This app uses Spring Profiles to control its behavior.\n");
+                    System.out.println("Sample usage: java -jar spring-rabbitmq-helloworld-1.0.jar --spring.profiles.active=hello-world,sender");
+        };
+    }
+
+    @Profile("!usage_message")
+    @Bean
+    public CommandLineRunner tutorial() {
+        return new RabbitAmqpTutorialsRunner();
+    }
+
+	@Bean
+	public Jackson2RepositoryPopulatorFactoryBean getRespositoryPopulator() {
+		Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
+		factory.setResources(new Resource[]{new ClassPathResource("json/drinks.json")});
+		return factory;
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(PhilzProductApplication.class, args);
+		//SpringApplication.run(PhilzPaymentApplication.class, args);
+		//SpringApplication.run(MessagingRabbitmqApplication.class, args).close();
+	}
+
+}
+```
+We ran into issues with sending a jsonObject so we changed it to just send the order number instead. That also didnt work at first and we realized the mistake was in PhilzProductApplication.java. We were using a dummy routing key instead of the name of our queue.
+
+```
+return BindingBuilder.bind(queue).to(exchange).with("foobar");
+```
+Needed to be changed to
+
+```
+return BindingBuilder.bind(queue).to(exchange).with(queueName);
+```
+This became our final version of rabbitmq and it worked locally. When a payment was successfully made it would send that order number in the queue for the ProductMessageListener to recieve the order.
 https://github.com/nguyensjsu/fa21-172-the-beacons-are-lit/commit/8c8a2d8cc1aa5bbe3743fe8803b1d823ee250dea
 
 ![image](https://user-images.githubusercontent.com/56413249/144986588-e62ffa44-5979-4253-a1e6-8e768f3d2b2f.png)
