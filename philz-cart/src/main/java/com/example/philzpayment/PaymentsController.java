@@ -37,11 +37,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(path = "apple")
 public class PaymentsController {  
 
     private static boolean DEBUG = true ;
+
+    @Autowired
+    private PaymentsInfoRepository paymentsInfoRepository;
 
     @Value("${cybersource.apihost}") private String apiHost ;
     @Value("${cybersource.merchantkeyid}") private String merchantKeyId ;
@@ -51,7 +54,6 @@ public class PaymentsController {
     @Autowired
     private RabbitTemplate template;
 
-    private PhilzProductRepository repository;
 
     private CyberSourceAPI api = new CyberSourceAPI();
 
@@ -144,9 +146,10 @@ public class PaymentsController {
 
     }
 
-    public PaymentsController(RabbitTemplate rabbitTemplate, PhilzProductRepository repository) {
+    public PaymentsController(RabbitTemplate rabbitTemplate,
+                              PaymentsInfoRepository paymentsInfoRepository) {
         this.template = rabbitTemplate;
-        this.repository = repository;
+        this.paymentsInfoRepository = paymentsInfoRepository;
     }
 
     @PostMapping(value = "api/payment",  produces = MediaType.APPLICATION_JSON_VALUE)
@@ -248,8 +251,11 @@ public class PaymentsController {
     
             if (authValid && captureValid){
                 jsonObject.put("message","Successful Payment! for " + paymentsInfo.email());
+                String status = "SUCCESS";
                 String message = "Order number: " + order_num;
-                template.convertAndSend(PhilzProductApplication.queueName, message);
+                OrderStatus orderStatus = new OrderStatus(order_num, status, message);
+                paymentsInfoRepository.save(paymentsInfo);
+                template.convertAndSend(Config.EXCHANGE, Config.ROUTINGKEY, orderStatus );
                 return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
             }        
     

@@ -1,6 +1,8 @@
 package com.example.philzpayment;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
@@ -12,8 +14,13 @@ import lombok.Setter;
 @Data
 @Setter
 @RequiredArgsConstructor
+@Entity
 class PaymentsInfo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+    
     //Cybersource required user info
     private String firstname ;
     private String lastname ;
